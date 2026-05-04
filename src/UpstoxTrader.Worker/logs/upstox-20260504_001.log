@@ -1,0 +1,146 @@
+[16:04:16 WRN] [UpstoxTrader.Infrastructure.Auth.TokenService] ClientId not configured — skipping OAuth. Set Upstox:ClientId in appsettings.json
+[16:04:16 INF] [UpstoxTrader.Worker.Workers.MarketDataWorker] MarketDataWorker starting — waiting for token...
+[16:04:16 INF] [UpstoxTrader.Worker.Workers.BreakoutWorker] BreakoutWorker started
+[16:04:16 INF] [UpstoxTrader.Worker.Workers.PositionMonitorWorker] PositionMonitorWorker started
+[16:04:16 INF] [UpstoxTrader.Worker.Workers.DailyResetWorker] DailyResetWorker started
+[16:04:16 INF] [UpstoxTrader.Worker.Workers.DailyResetWorker] Next daily reset in 1029.7 minutes
+[16:37:45 WRN] [UpstoxTrader.Infrastructure.Auth.TokenService] ClientId not configured — skipping OAuth. Set Upstox:ClientId in appsettings.json
+[16:37:45 INF] [UpstoxTrader.Worker.Workers.MarketDataWorker] MarketDataWorker starting — waiting for token...
+[16:37:45 INF] [UpstoxTrader.Worker.Workers.BreakoutWorker] BreakoutWorker started
+[16:37:45 INF] [UpstoxTrader.Worker.Workers.PositionMonitorWorker] PositionMonitorWorker started
+[16:37:45 INF] [UpstoxTrader.Worker.Workers.DailyResetWorker] DailyResetWorker started
+[16:37:45 INF] [UpstoxTrader.Worker.Workers.DailyResetWorker] Next daily reset in 996.2 minutes
+[16:41:37 WRN] [UpstoxTrader.Infrastructure.Auth.TokenService] ClientId not configured — skipping OAuth. Set Upstox:ClientId in appsettings.json
+[16:41:37 INF] [UpstoxTrader.Worker.Workers.MarketDataWorker] MarketDataWorker starting — waiting for token...
+[16:41:37 INF] [UpstoxTrader.Worker.Workers.BreakoutWorker] BreakoutWorker started
+[16:41:37 INF] [UpstoxTrader.Worker.Workers.PositionMonitorWorker] PositionMonitorWorker started
+[16:41:37 INF] [UpstoxTrader.Worker.Workers.DailyResetWorker] DailyResetWorker started
+[16:41:37 INF] [UpstoxTrader.Worker.Workers.DailyResetWorker] Next daily reset in 992.4 minutes
+[16:41:54 INF] [UpstoxTrader.Infrastructure.Auth.TokenService] Opening browser for Upstox OAuth...
+[16:41:54 INF] [UpstoxTrader.Infrastructure.Auth.TokenService] Auth URL: "https://api.upstox.com/v2/login/authorization/dialog?client_id=4079debc-1d42-4877-98e5-ed80ba023a7f&redirect_uri=http%3A%2F%2Flocalhost%3A5000%2Fcallback&response_type=code&scope=orders,portfolio,feed,user"
+[16:41:54 INF] [UpstoxTrader.Infrastructure.Auth.TokenService] Waiting for OAuth callback on http://localhost:5000/auth/callback ...
+[16:42:39 ERR] [UpstoxTrader.Infrastructure.Auth.TokenService] OAuth callback timed out after 3 minutes
+[16:42:39 INF] [UpstoxTrader.Worker.Workers.MarketDataWorker] MarketDataWorker starting — waiting for token...
+[16:42:39 INF] [UpstoxTrader.Worker.Workers.BreakoutWorker] BreakoutWorker started
+[16:42:39 ERR] [Microsoft.Extensions.Hosting.Internal.Host] Hosting failed to start
+System.Threading.Tasks.TaskCanceledException: A task was canceled.
+   at System.Threading.Channels.ChannelReader`1.ReadAllAsync(CancellationToken cancellationToken)+MoveNext()
+   at UpstoxTrader.Worker.Workers.BreakoutWorker.ExecuteAsync(CancellationToken stoppingToken) in C:\Users\Rnamsani\UpstoxTrader\src\UpstoxTrader.Worker\Workers\BreakoutWorker.cs:line 55
+   at UpstoxTrader.Worker.Workers.BreakoutWorker.ExecuteAsync(CancellationToken stoppingToken) in C:\Users\Rnamsani\UpstoxTrader\src\UpstoxTrader.Worker\Workers\BreakoutWorker.cs:line 55
+   at Microsoft.Extensions.Hosting.Internal.Host.<StartAsync>b__15_1(IHostedService service, CancellationToken token)
+   at Microsoft.Extensions.Hosting.Internal.Host.ForeachService[T](IEnumerable`1 services, CancellationToken token, Boolean concurrent, Boolean abortOnFirstException, List`1 exceptions, Func`3 operation)
+[16:42:39 FTL] [] Host terminated unexpectedly
+System.Threading.Tasks.TaskCanceledException: A task was canceled.
+   at System.Threading.Channels.ChannelReader`1.ReadAllAsync(CancellationToken cancellationToken)+MoveNext()
+   at UpstoxTrader.Worker.Workers.BreakoutWorker.ExecuteAsync(CancellationToken stoppingToken) in C:\Users\Rnamsani\UpstoxTrader\src\UpstoxTrader.Worker\Workers\BreakoutWorker.cs:line 55
+   at UpstoxTrader.Worker.Workers.BreakoutWorker.ExecuteAsync(CancellationToken stoppingToken) in C:\Users\Rnamsani\UpstoxTrader\src\UpstoxTrader.Worker\Workers\BreakoutWorker.cs:line 55
+   at Microsoft.Extensions.Hosting.Internal.Host.<StartAsync>b__15_1(IHostedService service, CancellationToken token)
+   at Microsoft.Extensions.Hosting.Internal.Host.ForeachService[T](IEnumerable`1 services, CancellationToken token, Boolean concurrent, Boolean abortOnFirstException, List`1 exceptions, Func`3 operation)
+   at Microsoft.Extensions.Hosting.Internal.Host.<StartAsync>g__LogAndRethrow|15_3(<>c__DisplayClass15_0&)
+   at Microsoft.Extensions.Hosting.Internal.Host.StartAsync(CancellationToken cancellationToken)
+   at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.RunAsync(IHost host, CancellationToken token)
+   at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.RunAsync(IHost host, CancellationToken token)
+   at Program.<Main>$(String[] args) in C:\Users\Rnamsani\UpstoxTrader\src\UpstoxTrader.Worker\Program.cs:line 78
+[16:42:49 INF] [UpstoxTrader.Infrastructure.Auth.TokenService] Opening browser for Upstox OAuth...
+[16:42:49 INF] [UpstoxTrader.Infrastructure.Auth.TokenService] Auth URL: "https://api.upstox.com/v2/login/authorization/dialog?client_id=4079debc-1d42-4877-98e5-ed80ba023a7f&redirect_uri=http%3A%2F%2Flocalhost%3A5000%2Fcallback&response_type=code&scope=orders,portfolio,feed,user"
+[16:42:49 INF] [UpstoxTrader.Infrastructure.Auth.TokenService] Waiting for OAuth callback on http://localhost:5000/auth/callback ...
+[16:43:58 ERR] [UpstoxTrader.Infrastructure.Auth.TokenService] OAuth callback timed out after 3 minutes
+[16:43:58 INF] [UpstoxTrader.Worker.Workers.MarketDataWorker] MarketDataWorker starting — waiting for token...
+[16:43:58 INF] [UpstoxTrader.Worker.Workers.BreakoutWorker] BreakoutWorker started
+[16:43:58 ERR] [Microsoft.Extensions.Hosting.Internal.Host] Hosting failed to start
+System.Threading.Tasks.TaskCanceledException: A task was canceled.
+   at System.Threading.Channels.ChannelReader`1.ReadAllAsync(CancellationToken cancellationToken)+MoveNext()
+   at UpstoxTrader.Worker.Workers.BreakoutWorker.ExecuteAsync(CancellationToken stoppingToken) in C:\Users\Rnamsani\UpstoxTrader\src\UpstoxTrader.Worker\Workers\BreakoutWorker.cs:line 55
+   at UpstoxTrader.Worker.Workers.BreakoutWorker.ExecuteAsync(CancellationToken stoppingToken) in C:\Users\Rnamsani\UpstoxTrader\src\UpstoxTrader.Worker\Workers\BreakoutWorker.cs:line 55
+   at Microsoft.Extensions.Hosting.Internal.Host.<StartAsync>b__15_1(IHostedService service, CancellationToken token)
+   at Microsoft.Extensions.Hosting.Internal.Host.ForeachService[T](IEnumerable`1 services, CancellationToken token, Boolean concurrent, Boolean abortOnFirstException, List`1 exceptions, Func`3 operation)
+[16:43:58 FTL] [] Host terminated unexpectedly
+System.Threading.Tasks.TaskCanceledException: A task was canceled.
+   at System.Threading.Channels.ChannelReader`1.ReadAllAsync(CancellationToken cancellationToken)+MoveNext()
+   at UpstoxTrader.Worker.Workers.BreakoutWorker.ExecuteAsync(CancellationToken stoppingToken) in C:\Users\Rnamsani\UpstoxTrader\src\UpstoxTrader.Worker\Workers\BreakoutWorker.cs:line 55
+   at UpstoxTrader.Worker.Workers.BreakoutWorker.ExecuteAsync(CancellationToken stoppingToken) in C:\Users\Rnamsani\UpstoxTrader\src\UpstoxTrader.Worker\Workers\BreakoutWorker.cs:line 55
+   at Microsoft.Extensions.Hosting.Internal.Host.<StartAsync>b__15_1(IHostedService service, CancellationToken token)
+   at Microsoft.Extensions.Hosting.Internal.Host.ForeachService[T](IEnumerable`1 services, CancellationToken token, Boolean concurrent, Boolean abortOnFirstException, List`1 exceptions, Func`3 operation)
+   at Microsoft.Extensions.Hosting.Internal.Host.<StartAsync>g__LogAndRethrow|15_3(<>c__DisplayClass15_0&)
+   at Microsoft.Extensions.Hosting.Internal.Host.StartAsync(CancellationToken cancellationToken)
+   at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.RunAsync(IHost host, CancellationToken token)
+   at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.RunAsync(IHost host, CancellationToken token)
+   at Program.<Main>$(String[] args) in C:\Users\Rnamsani\UpstoxTrader\src\UpstoxTrader.Worker\Program.cs:line 78
+[16:44:58 INF] [UpstoxTrader.Infrastructure.Auth.TokenService] Opening browser for Upstox OAuth...
+[16:44:58 INF] [UpstoxTrader.Infrastructure.Auth.TokenService] Auth URL: "https://api.upstox.com/v2/login/authorization/dialog?client_id=4079debc-1d42-4877-98e5-ed80ba023a7f&redirect_uri=http%3A%2F%2Flocalhost%3A5000%2Fcallback&response_type=code&scope=orders,portfolio,feed,user"
+[16:44:58 INF] [UpstoxTrader.Infrastructure.Auth.TokenService] Waiting for OAuth callback on http://localhost:5000/auth/callback ...
+[16:45:04 INF] [UpstoxTrader.Infrastructure.Auth.TokenService] Access token obtained — ready to trade
+[16:45:04 INF] [UpstoxTrader.Worker.Workers.MarketDataWorker] MarketDataWorker starting — waiting for token...
+[16:45:04 INF] [UpstoxTrader.Worker.Workers.MarketDataWorker] Token available — connecting to market feed
+[16:45:04 INF] [UpstoxTrader.Worker.Workers.BreakoutWorker] BreakoutWorker started
+[16:45:04 INF] [UpstoxTrader.Worker.Workers.PositionMonitorWorker] PositionMonitorWorker started
+[16:45:04 INF] [UpstoxTrader.Worker.Workers.DailyResetWorker] DailyResetWorker started
+[16:45:04 INF] [UpstoxTrader.Worker.Workers.DailyResetWorker] Next daily reset in 988.9 minutes
+[16:45:05 INF] [UpstoxTrader.Infrastructure.WebSocket.UpstoxWebSocketClient] WebSocket connected (attempt 1)
+[16:45:05 INF] [UpstoxTrader.Infrastructure.WebSocket.UpstoxWebSocketClient] Subscribed to "NSE_INDEX|Nifty 50"
+[16:57:34 WRN] [UpstoxTrader.Infrastructure.WebSocket.UpstoxWebSocketClient] WebSocket disconnected — scheduling reconnect
+System.Net.WebSockets.WebSocketException (0x80004005): The remote party closed the WebSocket connection without completing the close handshake.
+ ---> System.IO.IOException: Unable to read data from the transport connection: An existing connection was forcibly closed by the remote host..
+ ---> System.Net.Sockets.SocketException (10054): An existing connection was forcibly closed by the remote host.
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.CreateException(SocketError error, Boolean forAsyncThrow)
+   at System.Net.Sockets.NetworkStream.ReadAsync(Memory`1 buffer, CancellationToken cancellationToken)
+   at System.Net.Security.SslStream.EnsureFullTlsFrameAsync[TIOAdapter](CancellationToken cancellationToken, Int32 estimatedSize)
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Net.Sockets.SocketAsyncEventArgs.<>c.<.cctor>b__173_0(UInt32 errorCode, UInt32 numBytes, NativeOverlapped* nativeOverlapped)
+   at System.Threading.ThreadPoolTypedWorkItemQueue`2.System.Threading.IThreadPoolWorkItem.Execute()
+   at System.Threading.ThreadPoolWorkQueue.Dispatch()
+   at System.Threading.PortableThreadPool.WorkerThread.WorkerThreadStart()
+--- End of stack trace from previous location ---
+
+   --- End of inner exception stack trace ---
+   at System.Net.Security.SslStream.EnsureFullTlsFrameAsync[TIOAdapter](CancellationToken cancellationToken, Int32 estimatedSize)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at System.Net.Security.SslStream.ReadAsyncInternal[TIOAdapter](Memory`1 buffer, CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at System.Net.Http.HttpConnection.ReadBufferedAsyncCore(Memory`1 destination)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at System.Net.Http.HttpConnection.RawConnectionStream.ReadAsync(Memory`1 buffer, CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at System.IO.Stream.ReadAtLeastAsyncCore(Memory`1 buffer, Int32 minimumBytes, Boolean throwOnEndOfStream, CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at System.Net.WebSockets.ManagedWebSocket.EnsureBufferContainsAsync(Int32 minimumRequiredBytes, CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.WebSockets.ManagedWebSocket.ReceiveAsyncPrivate[TResult](Memory`1 payloadBuffer, CancellationToken cancellationToken)
+   at System.Net.WebSockets.ManagedWebSocket.ReceiveAsyncPrivate[TResult](Memory`1 payloadBuffer, CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at System.Threading.Tasks.ValueTask`1.ValueTaskSourceAsTask.<>c.<.cctor>b__4_0(Object state)
+--- End of stack trace from previous location ---
+   at UpstoxTrader.Infrastructure.WebSocket.UpstoxWebSocketClient.ReceiveLoopAsync(CancellationToken ct) in C:\Users\Rnamsani\UpstoxTrader\src\UpstoxTrader.Infrastructure\WebSocket\UpstoxWebSocketClient.cs:line 176
+[17:06:42 INF] [UpstoxTrader.Infrastructure.WebSocket.UpstoxWebSocketClient] Reconnect attempt 1/10...
+[17:06:42 WRN] [UpstoxTrader.Infrastructure.WebSocket.UpstoxWebSocketClient] Reconnect attempt 1 failed
+System.Net.Http.HttpRequestException: No such host is known. (api.upstox.com:443)
+ ---> System.Net.Sockets.SocketException (11001): No such host is known.
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Sockets.Socket.<ConnectAsync>g__WaitForConnectWithCancellation|285_0(AwaitableSocketAsyncEventArgs saea, ValueTask connectTask, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.AddHttp11ConnectionAsync(QueueItem queueItem)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at UpstoxTrader.Infrastructure.WebSocket.UpstoxWebSocketClient.GetAuthorizedUriAsync(CancellationToken ct) in C:\Users\Rnamsani\UpstoxTrader\src\UpstoxTrader.Infrastructure\WebSocket\UpstoxWebSocketClient.cs:line 120
+   at UpstoxTrader.Infrastructure.WebSocket.UpstoxWebSocketClient.ReconnectAsync(CancellationToken ct) in C:\Users\Rnamsani\UpstoxTrader\src\UpstoxTrader.Infrastructure\WebSocket\UpstoxWebSocketClient.cs:line 306
+[17:06:48 INF] [UpstoxTrader.Infrastructure.WebSocket.UpstoxWebSocketClient] Reconnect attempt 2/10...
+[17:06:49 INF] [UpstoxTrader.Infrastructure.WebSocket.UpstoxWebSocketClient] WebSocket reconnected and re-subscribed (1 keys)
+[17:07:23 WRN] [UpstoxTrader.Infrastructure.WebSocket.UpstoxWebSocketClient] WebSocket disconnected — scheduling reconnect
+System.Net.WebSockets.WebSocketException (0x80004005): The remote party closed the WebSocket connection without completing the close handshake.
+   at System.Net.WebSockets.ManagedWebSocket.ThrowEOFUnexpected()
+   at System.Net.WebSockets.ManagedWebSocket.EnsureBufferContainsAsync(Int32 minimumRequiredBytes, CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.WebSockets.ManagedWebSocket.ReceiveAsyncPrivate[TResult](Memory`1 payloadBuffer, CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at System.Threading.Tasks.ValueTask`1.ValueTaskSourceAsTask.<>c.<.cctor>b__4_0(Object state)
+--- End of stack trace from previous location ---
+   at UpstoxTrader.Infrastructure.WebSocket.UpstoxWebSocketClient.ReceiveLoopAsync(CancellationToken ct) in C:\Users\Rnamsani\UpstoxTrader\src\UpstoxTrader.Infrastructure\WebSocket\UpstoxWebSocketClient.cs:line 176
+[17:07:28 INF] [UpstoxTrader.Infrastructure.WebSocket.UpstoxWebSocketClient] Reconnect attempt 1/10...
+[17:07:28 INF] [UpstoxTrader.Infrastructure.WebSocket.UpstoxWebSocketClient] WebSocket reconnected and re-subscribed (1 keys)

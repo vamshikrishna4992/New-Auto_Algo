@@ -1,0 +1,11 @@
+C:\Users\Rnamsani\UpstoxTrader\src\UpstoxTrader.Core\bin\Debug\net8.0\UpstoxTrader.Core.deps.json
+C:\Users\Rnamsani\UpstoxTrader\src\UpstoxTrader.Core\bin\Debug\net8.0\UpstoxTrader.Core.dll
+C:\Users\Rnamsani\UpstoxTrader\src\UpstoxTrader.Core\bin\Debug\net8.0\UpstoxTrader.Core.pdb
+C:\Users\Rnamsani\UpstoxTrader\src\UpstoxTrader.Core\obj\Debug\net8.0\UpstoxTrader.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Rnamsani\UpstoxTrader\src\UpstoxTrader.Core\obj\Debug\net8.0\UpstoxTrader.Core.AssemblyInfoInputs.cache
+C:\Users\Rnamsani\UpstoxTrader\src\UpstoxTrader.Core\obj\Debug\net8.0\UpstoxTrader.Core.AssemblyInfo.cs
+C:\Users\Rnamsani\UpstoxTrader\src\UpstoxTrader.Core\obj\Debug\net8.0\UpstoxTrader.Core.csproj.CoreCompileInputs.cache
+C:\Users\Rnamsani\UpstoxTrader\src\UpstoxTrader.Core\obj\Debug\net8.0\UpstoxTrader.Core.dll
+C:\Users\Rnamsani\UpstoxTrader\src\UpstoxTrader.Core\obj\Debug\net8.0\refint\UpstoxTrader.Core.dll
+C:\Users\Rnamsani\UpstoxTrader\src\UpstoxTrader.Core\obj\Debug\net8.0\UpstoxTrader.Core.pdb
+C:\Users\Rnamsani\UpstoxTrader\src\UpstoxTrader.Core\obj\Debug\net8.0\ref\UpstoxTrader.Core.dll

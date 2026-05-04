@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(& \"C:\\\\Program Files\\\\dotnet\\\\dotnet.exe\" --version)",
+      "PowerShell($env:PATH -split ';' | Where-Object { $_ -ne '' } | Sort-Object)",
+      "PowerShell($env:PATH = \"C:\\\\Program Files\\\\dotnet;\" + $env:PATH; dotnet --version)",
+      "PowerShell($env:PATH = \"C:\\\\Program Files\\\\dotnet;\" + $env:PATH; Set-Location \"C:\\\\Users\\\\Rnamsani\\\\UpstoxTrader\"; dotnet build src/UpstoxTrader.Worker 2>&1 | Select-Object -Last 20)"
+    ]
+  }
+}

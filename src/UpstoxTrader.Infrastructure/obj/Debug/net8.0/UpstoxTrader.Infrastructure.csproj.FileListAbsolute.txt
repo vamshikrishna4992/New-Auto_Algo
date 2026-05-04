@@ -1,0 +1,15 @@
+C:\Users\Rnamsani\UpstoxTrader\src\UpstoxTrader.Infrastructure\obj\Debug\net8.0\UpstoxTrader.Infrastructure.csproj.AssemblyReference.cache
+C:\Users\Rnamsani\UpstoxTrader\src\UpstoxTrader.Infrastructure\obj\Debug\net8.0\UpstoxTrader.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Rnamsani\UpstoxTrader\src\UpstoxTrader.Infrastructure\obj\Debug\net8.0\UpstoxTrader.Infrastructure.AssemblyInfoInputs.cache
+C:\Users\Rnamsani\UpstoxTrader\src\UpstoxTrader.Infrastructure\obj\Debug\net8.0\UpstoxTrader.Infrastructure.AssemblyInfo.cs
+C:\Users\Rnamsani\UpstoxTrader\src\UpstoxTrader.Infrastructure\obj\Debug\net8.0\UpstoxTrader.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\Rnamsani\UpstoxTrader\src\UpstoxTrader.Infrastructure\bin\Debug\net8.0\UpstoxTrader.Infrastructure.deps.json
+C:\Users\Rnamsani\UpstoxTrader\src\UpstoxTrader.Infrastructure\bin\Debug\net8.0\UpstoxTrader.Infrastructure.dll
+C:\Users\Rnamsani\UpstoxTrader\src\UpstoxTrader.Infrastructure\bin\Debug\net8.0\UpstoxTrader.Infrastructure.pdb
+C:\Users\Rnamsani\UpstoxTrader\src\UpstoxTrader.Infrastructure\bin\Debug\net8.0\UpstoxTrader.Core.dll
+C:\Users\Rnamsani\UpstoxTrader\src\UpstoxTrader.Infrastructure\bin\Debug\net8.0\UpstoxTrader.Core.pdb
+C:\Users\Rnamsani\UpstoxTrader\src\UpstoxTrader.Infrastructure\obj\Debug\net8.0\UpstoxTr.6509AFD1.Up2Date
+C:\Users\Rnamsani\UpstoxTrader\src\UpstoxTrader.Infrastructure\obj\Debug\net8.0\UpstoxTrader.Infrastructure.dll
+C:\Users\Rnamsani\UpstoxTrader\src\UpstoxTrader.Infrastructure\obj\Debug\net8.0\refint\UpstoxTrader.Infrastructure.dll
+C:\Users\Rnamsani\UpstoxTrader\src\UpstoxTrader.Infrastructure\obj\Debug\net8.0\UpstoxTrader.Infrastructure.pdb
+C:\Users\Rnamsani\UpstoxTrader\src\UpstoxTrader.Infrastructure\obj\Debug\net8.0\ref\UpstoxTrader.Infrastructure.dll

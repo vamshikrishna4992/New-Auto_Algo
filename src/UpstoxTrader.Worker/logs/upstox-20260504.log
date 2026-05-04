@@ -1,0 +1,6 @@
+[15:58:58 WRN] [UpstoxTrader.Infrastructure.Auth.TokenService] ClientId not configured — skipping OAuth. Set Upstox:ClientId in appsettings.json
+[15:58:58 INF] [UpstoxTrader.Worker.Workers.MarketDataWorker] MarketDataWorker starting — waiting for token...
+[15:58:58 INF] [UpstoxTrader.Worker.Workers.BreakoutWorker] BreakoutWorker started
+[15:58:58 INF] [UpstoxTrader.Worker.Workers.PositionMonitorWorker] PositionMonitorWorker started
+[15:58:58 INF] [UpstoxTrader.Worker.Workers.DailyResetWorker] DailyResetWorker started
+[15:58:58 INF] [UpstoxTrader.Worker.Workers.DailyResetWorker] Next daily reset in 1035.0 minutes

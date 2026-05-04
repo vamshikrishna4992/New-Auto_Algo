@@ -1,0 +1,68 @@
+syntax = "proto3";
+
+option csharp_namespace = "UpstoxTrader.Infrastructure.Protos";
+
+package com.upstox.marketdatafeeder.rpc.proto;
+
+message FeedResponse {
+  map<string, Feed> feeds = 1;
+}
+
+message Feed {
+  oneof FeedUnion {
+    FullFeed full_feed = 1;
+    LTPC     ltpc      = 2;
+  }
+}
+
+message FullFeed {
+  oneof FullFeedUnion {
+    MarketFF market_ff = 1;
+    IndexFF  index_ff  = 2;
+  }
+}
+
+// Last Traded Price Change — fields match Upstox v3 wire types exactly
+message LTPC {
+  double ltp = 1;   // last traded price  (double, NOT float)
+  int64  ltt = 2;   // last trade time (epoch ms)
+  double ltq = 3;   // last traded quantity
+  double cp  = 4;   // close price
+}
+
+// Full feed for tradeable instruments (options, futures, equities)
+message MarketFF {
+  LTPC            ltpc         = 1;
+  double          atp          = 2;   // average trade price
+  double          cp           = 3;   // close price
+  OHLC            ohlc         = 4;
+  int64           vtt          = 5;   // volume total traded
+  int64           oi           = 6;   // open interest
+  float           ii           = 7;   // implied index (float in Upstox proto)
+  repeated Level  bid_ask_quote = 8;
+  double          tb           = 9;   // total buyers
+  double          ts           = 10;  // total sellers
+}
+
+// Full feed for indices (Nifty 50 comes through here)
+message IndexFF {
+  LTPC   ltpc       = 1;
+  double last_close = 2;
+  OHLC   ohlc       = 3;
+  double yearly_high = 4;
+  double yearly_low  = 5;
+}
+
+message OHLC {
+  double open  = 1;
+  double high  = 2;
+  double low   = 3;
+  double close = 4;
+}
+
+message Level {
+  int64  bid_quantity = 1;
+  double bid_price    = 2;
+  double ask_price    = 3;
+  int64  ask_quantity = 4;
+}

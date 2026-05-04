@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "5vlgizbT2z8=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Rnamsani\\UpstoxTrader\\src\\UpstoxTrader.Strategy\\UpstoxTrader.Strategy.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Rnamsani\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\8.0.2\\microsoft.extensions.dependencyinjection.abstractions.8.0.2.nupkg.sha512",
+    "C:\\Users\\Rnamsani\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\8.0.2\\microsoft.extensions.logging.abstractions.8.0.2.nupkg.sha512",
+    "C:\\Users\\Rnamsani\\.nuget\\packages\\microsoft.extensions.options\\8.0.2\\microsoft.extensions.options.8.0.2.nupkg.sha512",
+    "C:\\Users\\Rnamsani\\.nuget\\packages\\microsoft.extensions.primitives\\8.0.0\\microsoft.extensions.primitives.8.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}
