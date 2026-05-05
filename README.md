@@ -1,139 +1,166 @@
-# UpstoxTrader — ORB Strategy Bot
+<div align="center">
 
-Opening Range Breakout (ORB) trading automation for Nifty 50 options, built on .NET 8.
-Pure Worker Service — all output goes to the console and rolling log files.
+# 📈 UpstoxTrader
+
+### Automated Opening Range Breakout (ORB) Trading Bot
+#### Nifty 50 Options · Upstox API · .NET 8
+
+<br/>
+
+![.NET](https://img.shields.io/badge/.NET-8.0-512BD4?style=for-the-badge&logo=dotnet)
+![Platform](https://img.shields.io/badge/Platform-Windows-0078D6?style=for-the-badge&logo=windows)
+![Exchange](https://img.shields.io/badge/Exchange-NSE-FF6B00?style=for-the-badge)
+![Strategy](https://img.shields.io/badge/Strategy-ORB-22C55E?style=for-the-badge)
+![Status](https://img.shields.io/badge/Status-Active-22C55E?style=for-the-badge)
+
+</div>
 
 ---
 
-## How It Works
+## 📌 What Is This?
 
-### Overall Trading Flow
+UpstoxTrader is a fully automated trading bot that implements the **Opening Range Breakout (ORB)** strategy on Nifty 50 options using the Upstox API. It builds an opening candle, detects a price breakout, places a market order, monitors P&L tick-by-tick, and exits automatically — all without manual intervention.
+
+---
+
+## 🔄 Overall Trading Flow
 
 ```mermaid
 flowchart TD
-    A([App Start]) --> B[OAuth Login\nBrowser opens automatically]
-    B --> C[Wait for 9:15 IST]
-    C --> D[Build Opening Range Candle\n9:15 → 9:15 + CandleMinutes]
-    D --> E{LTP Breakout?}
+    A([🚀 App Start]) --> B[🔐 OAuth Login\nBrowser opens automatically]
+    B --> C[⏳ Wait for 9:15 IST]
+    C --> D[🕯️ Build Opening Range Candle\n9:15 → 9:15 + CandleMinutes]
+    D --> E{📊 LTP Breakout?}
     E -->|LTP crosses above High| F[🟢 BUY ATM CE Option\nMarket Order]
     E -->|LTP crosses below Low| G[🔴 BUY ATM PE Option\nMarket Order]
     E -->|No breakout yet| E
-    F --> H[Monitor Position\nTick by tick P&L]
+    F --> H[👁️ Monitor Position\nTick by tick P&L]
     G --> H
-    H --> I{Exit Condition?}
+    H --> I{🚪 Exit Condition?}
     I -->|Profit ≥ Target| J[✅ SELL — Target Hit]
     I -->|Loss ≥ Stop Loss| K[❌ SELL — Stop Loss]
     I -->|Time ≥ HardExitTime| L[⏰ SELL — Timed Out]
     I -->|Manual Force Exit| M[🛑 SELL — Manual]
-    J & K & L & M --> N[Wait for next day\nAuto reset at 9:14 IST]
+    J & K & L & M --> N[🔁 Wait for next day\nAuto reset at 9:14 IST]
     N --> C
 ```
 
 ---
 
-### The Opening Range Candle
+## 🕯️ The Opening Range Candle
 
-The bot watches Nifty price for the first N minutes (configurable). Whatever the High and Low are during that window becomes the **Opening Range**.
+The bot watches Nifty price for the first N minutes. The High and Low of that window become the **Opening Range**.
 
 ```
 Nifty Price
     │
-    │         ╔══ CE Signal → BUY CE ══════════════▶
-    │         ║
- High ────────╫──────────────────────────────────────
-    │    ┌────╨────┐
-    │    │         │   Opening Range Candle
-    │    │  9:15   │   (High, Low, Open, Close)
-    │    │ to 9:17 │
-    │    └────╥────┘
- Low  ────────╫──────────────────────────────────────
-    │         ║
-    │         ╚══ PE Signal → BUY PE ══════════════▶
+    │              ╔══ Breakout Above High → 🟢 BUY CE ══════▶
+    │              ║
+ High ─────────────╫─────────────────────────────────────────
+    │         ┌────╨────┐
+    │         │  O R B  │  Opening Range Candle
+    │         │  Candle │  tracks High / Low / Open / Close
+    │         └────╥────┘
+ Low  ─────────────╫─────────────────────────────────────────
+    │              ║
+    │              ╚══ Breakout Below Low  → 🔴 BUY PE ══════▶
     │
-    └──────────────────────────────────────────────▶ Time
-         9:15  9:17          9:30           15:20
+    └──────────────────────────────────────────────────────▶ Time
+              9:15  9:17                            15:20
+              │◄──►│
+           CandleMinutes
 ```
 
 ---
 
-### Order Placement Logic
+## 📥 Order Placement Logic
 
 ```mermaid
 flowchart LR
-    A[Breakout Detected] --> B[Calculate ATM Strike\nRound Nifty LTP to nearest 50]
-    B --> C[Fetch Option Chain\nfrom Upstox API]
-    C --> D[Find nearest\nstrike in chain]
+    A[⚡ Breakout Detected] --> B[🧮 Calculate ATM Strike\nRound Nifty LTP to nearest 50]
+    B --> C[🔗 Fetch Option Chain\nfrom Upstox API]
+    C --> D[🎯 Find nearest\nstrike in chain]
     D --> E{Direction?}
-    E -->|CE| F[Place BUY\nNIFTY CE Market Order]
-    E -->|PE| G[Place BUY\nNIFTY PE Market Order]
-    F & G --> H[Subscribe to\nOption LTP Feed]
-    H --> I[Position Active\nTrack every tick]
+    E -->|Up| F[🟢 BUY NIFTY CE\nMarket Order]
+    E -->|Down| G[🔴 BUY NIFTY PE\nMarket Order]
+    F & G --> H[📡 Subscribe to\nOption LTP Feed]
+    H --> I[📊 Position Active\nTrack every tick]
 ```
 
 ---
 
-### Exit Conditions
+## 🚪 Exit Conditions
 
 ```mermaid
 flowchart TD
-    T[Every Tick] --> A{Check Exits}
+    T[⚡ Every Tick] --> A{Check All Exits}
     A --> B{Profit ≥ Target?}
     A --> C{Loss ≥ Stop Loss?}
     A --> D{Time ≥ HardExitTime?}
     A --> E{Force Exit\nRequested?}
-    B -->|Yes| X[Place SELL Order]
-    C -->|Yes| X
-    D -->|Yes| X
-    E -->|Yes| X
+    B -->|Yes ✅| X[📤 Place SELL Order]
+    C -->|Yes ❌| X
+    D -->|Yes ⏰| X
+    E -->|Yes 🛑| X
     B & C & D & E -->|No| T
-    X --> Y[Log Final P&L\nUpdate Position Status]
+    X --> Y[📋 Log Final P&L\nUpdate Position Status]
 ```
 
-**Exit modes:**
+<details>
+<summary><b>📐 Exit mode formula reference</b></summary>
+
+<br/>
 
 | `ExitMode` | Target condition | Stop loss condition |
 |---|---|---|
 | `Percent` | `(LTP - Entry) / Entry × 100 ≥ TakeProfitPct` | `(Entry - LTP) / Entry × 100 ≥ StopLossPct` |
 | `Points` | `LTP - Entry ≥ TakeProfitPoints` | `Entry - LTP ≥ StopLossPoints` |
 
+</details>
+
 ---
 
-### System Architecture
+## 🏗️ System Architecture
 
 ```mermaid
 flowchart TD
-    Feed[Market Feed\nHTTP Poll / WebSocket] --> MDW
+    Feed[📡 Market Feed\nHTTP Poll / WebSocket] --> MDW
 
     subgraph Workers
         MDW[MarketDataWorker\nReceives all ticks]
-        BW[BreakoutWorker\nBuilds candles\nDetects signals]
-        PMW[PositionMonitorWorker\nTracks P&L\nExecutes exits]
+        BW[BreakoutWorker\nBuilds candles · Detects signals]
+        PMW[PositionMonitorWorker\nTracks P&L · Executes exits]
         DRW[DailyResetWorker\nResets at 9:14 IST]
     end
 
     MDW -->|Nifty ticks| BW
     MDW -->|Option ticks| PMW
-    BW -->|Signal| OS[OrderService\nPlace BUY order]
-    PMW -->|Exit trigger| OS2[OrderService\nPlace SELL order]
-    BW -->|Subscribe option| MDW
-    DRW -->|Reset| MDW & BW & PMW
+    BW -->|Signal fired| OS[🟢 OrderService\nPlace BUY order]
+    PMW -->|Exit triggered| OS2[🔴 OrderService\nPlace SELL order]
+    BW -->|Subscribe option feed| MDW
+    DRW -->|Daily reset| MDW & BW & PMW
 ```
 
 ---
 
-## Prerequisites
+## ⚙️ Prerequisites
 
-- [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0) — install the **SDK** (not Runtime) for Windows x64
+> **Only one install required**
+
+| Requirement | Details |
+|---|---|
+| [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0) | Download the **SDK** (not Runtime) for Windows x64 |
 
 Verify after install:
+```bash
+dotnet --version   # should print 8.x.x
 ```
-dotnet --version
-```
-Should print `8.x.x`. No other software is required.
 
 ---
 
-## Step 1 — Upstox Developer Portal Setup (One-Time)
+## 🚀 Setup Guide
+
+### Step 1 — Upstox Developer Portal
 
 1. Log in at [developer.upstox.com](https://developer.upstox.com)
 2. Go to **My Apps** → **Create New App**
@@ -141,20 +168,20 @@ Should print `8.x.x`. No other software is required.
    ```
    http://localhost:5000/callback/
    ```
-4. Enable these scopes: `orders`, `portfolio`, `feed`, `user`
-5. Note your **Client ID** and **Client Secret**
+4. Enable scopes: `orders` `portfolio` `feed` `user`
+5. Copy your **Client ID** and **Client Secret**
 
 ---
 
-## Step 2 — Get the Code
+### Step 2 — Get the Code
 
-Download the ZIP from GitHub → **Code → Download ZIP** and extract to any folder, e.g. `C:\UpstoxTrader`.
+Download the ZIP from GitHub → **Code → Download ZIP** → Extract to `C:\UpstoxTrader`
 
 ---
 
-## Step 3 — Configure
+### Step 3 — Configure
 
-Open `src\UpstoxTrader.Worker\appsettings.json` and fill in your credentials:
+Open `src\UpstoxTrader.Worker\appsettings.json` and set your credentials:
 
 ```json
 "Upstox": {
@@ -164,31 +191,26 @@ Open `src\UpstoxTrader.Worker\appsettings.json` and fill in your credentials:
 }
 ```
 
-See the full **Configuration Reference** below for all trading parameters.
-
 ---
 
-## Step 4 — Run
+### Step 4 — Run
 
 ```bash
 cd src\UpstoxTrader.Worker
 dotnet run
 ```
 
-On first run:
-1. NuGet packages are downloaded automatically (requires internet, one-time only)
-2. A browser window opens for Upstox OAuth login
-3. After you approve, the bot starts and waits for market open
-
-All output goes to the console and to `logs/upstox-YYYYMMDD.log`.
+> First run downloads packages automatically (internet required, one-time only).
+> A browser opens for Upstox login. After approval, the bot starts and waits for 9:15.
 
 ---
 
-## Configuration Reference
+## 🛠️ Configuration Reference
 
-All settings live in `src\UpstoxTrader.Worker\appsettings.json`.
+<details>
+<summary><b>📡 Upstox API settings</b></summary>
 
-### Upstox API
+<br/>
 
 | Key | Description |
 |-----|-------------|
@@ -198,62 +220,79 @@ All settings live in `src\UpstoxTrader.Worker\appsettings.json`.
 | `Upstox:BaseUrl` | `https://api.upstox.com/v2` — do not change |
 | `Upstox:WebSocketUrl` | Upstox market feed URL — do not change |
 
-### Trading
+</details>
+
+<details>
+<summary><b>📊 Trading settings</b></summary>
+
+<br/>
 
 | Key | Default | Description |
 |-----|---------|-------------|
-| `Trading:CandleMinutes` | `2` | Opening range window in minutes (e.g. `2` = 9:15–9:17) |
-| `Trading:CandleMode` | `AllCandles` | `FirstOnly` — trade only the first candle signal; `AllCandles` — re-arm after each candle |
-| `Trading:SignalCutoffTime` | `"15:00"` | In `AllCandles` mode, stop looking for new signals after this IST time |
-| `Trading:LotSize` | `75` | Shares per order — check NSE for current Nifty lot size |
-| `Trading:ExitMode` | `Percent` | `Percent` — exit based on % move; `Points` — exit based on absolute points |
-| `Trading:TakeProfitPct` | `10.0` | Target profit % (used when `ExitMode` is `Percent`) |
-| `Trading:StopLossPct` | `5.0` | Stop loss % (used when `ExitMode` is `Percent`) |
-| `Trading:TakeProfitPoints` | `10` | Target profit in points (used when `ExitMode` is `Points`) |
-| `Trading:StopLossPoints` | `5` | Stop loss in points (used when `ExitMode` is `Points`) |
-| `Trading:HardExitTime` | `"15:20"` | Force-exit any open position at this IST time |
-| `Trading:PaperTrade` | `true` | `true` = simulated, no real orders; `false` = live trading |
+| `Trading:CandleMinutes` | `2` | Opening range window in minutes |
+| `Trading:CandleMode` | `AllCandles` | `FirstOnly` — one signal per day; `AllCandles` — re-arm after each candle |
+| `Trading:SignalCutoffTime` | `"15:00"` | Stop looking for signals after this IST time (`AllCandles` mode) |
+| `Trading:LotSize` | `75` | Shares per order — verify current Nifty lot size on NSE |
+| `Trading:ExitMode` | `Percent` | `Percent` or `Points` |
+| `Trading:TakeProfitPct` | `10.0` | Target profit % (`Percent` mode) |
+| `Trading:StopLossPct` | `5.0` | Stop loss % (`Percent` mode) |
+| `Trading:TakeProfitPoints` | `10` | Target profit in points (`Points` mode) |
+| `Trading:StopLossPoints` | `5` | Stop loss in points (`Points` mode) |
+| `Trading:HardExitTime` | `"15:20"` | Force-exit all positions at this IST time |
+| `Trading:PaperTrade` | `true` | `true` = simulated; `false` = live real orders |
 
-### Nifty
+</details>
+
+<details>
+<summary><b>📈 Nifty settings</b></summary>
+
+<br/>
 
 | Key | Default | Description |
 |-----|---------|-------------|
 | `Nifty:InstrumentKey` | `NSE_INDEX\|Nifty 50` | Upstox instrument key — do not change |
-| `Nifty:StrikeInterval` | `50` | Strike rounding interval — Nifty uses 50 |
+| `Nifty:StrikeInterval` | `50` | Strike rounding interval |
+
+</details>
 
 ---
 
-## Paper Trading vs Live Trading
+## 📄 Paper vs Live Trading
 
-| | Paper | Live |
+| | 🧪 Paper | 💰 Live |
 |---|---|---|
 | `PaperTrade` | `true` | `false` |
 | Real orders placed | No | Yes |
-| P&L tracking | Yes (simulated from ticks) | Yes (real) |
+| P&L tracking | Simulated from ticks | Real |
 | Logs | Same | Same |
 
-**Always run with `PaperTrade: true` first** to confirm the bot is selecting the correct expiry, strike, and direction before switching to live.
+> ⚠️ **Always run Paper first** to confirm expiry, strike, and direction are correct before going live.
 
 To go live:
-1. Set `"PaperTrade": false` in `appsettings.json`
-2. Verify `LotSize`, `TakeProfitPct`, and `StopLossPct`
+1. Set `"PaperTrade": false`
+2. Verify `LotSize`, `TakeProfitPct`, `StopLossPct`
 3. Restart the bot
 
 ---
 
-## Logs
+## 📋 Logs
 
-Rolling daily logs are written to `logs/upstox-YYYYMMDD.log` in the working directory.
-Console output uses the same format: `[HH:mm:ss INF] Message`.
+<details>
+<summary><b>View log format and key messages</b></summary>
 
-Key log lines on startup:
+<br/>
+
+Logs are written to `logs/upstox-YYYYMMDD.log` and the console.
+Format: `[HH:mm:ss INF] Message`
+
+**On startup:**
 ```
 Opening browser for Upstox OAuth...
 Access token obtained — ready to trade
 Option chain session: underlying=NSE_INDEX|Nifty 50 expiry=2026-05-13
 ```
 
-Key log lines during trading:
+**During trading:**
 ```
 Breakout detected: CE | Nifty @ 24150
 Placed BUY order: NSE_FO|NIFTY...
@@ -261,27 +300,38 @@ P&L: +6.2% | ₹4,800
 Exit: Target Hit | Sell order placed
 ```
 
+</details>
+
 ---
 
-## Solution Structure
+## 📁 Solution Structure
 
 ```
 UpstoxTrader/
-├── README.md
-├── UpstoxTrader.sln
+├── 📄 README.md
+├── 📄 UpstoxTrader.sln
 └── src/
-    ├── UpstoxTrader.Core/            Models, interfaces, settings, enums
-    ├── UpstoxTrader.Infrastructure/  Auth, WebSocket, HTTP client, order and option services
-    ├── UpstoxTrader.Strategy/        Candle builder, breakout detector, exit evaluator
-    └── UpstoxTrader.Worker/          Background workers, startup, appsettings.json
+    ├── UpstoxTrader.Core/            Models · Interfaces · Settings · Enums
+    ├── UpstoxTrader.Infrastructure/  Auth · WebSocket · HTTP client · Order & Option services
+    ├── UpstoxTrader.Strategy/        Candle builder · Breakout detector · Exit evaluator
+    └── UpstoxTrader.Worker/          Background workers · Startup · appsettings.json
 ```
 
 ---
 
-## Important Notes
+## ⚠️ Important Notes
 
-- Each person must use their **own Upstox API credentials** — do not share credentials across machines
-- The bot handles **one position per day** in `FirstOnly` mode
-- In `AllCandles` mode only one position is active at a time; it re-arms after the position is closed
+- Each person must use their **own Upstox API credentials** — never share across machines
+- `FirstOnly` mode: **one trade per day**, no re-entry after exit
+- `AllCandles` mode: re-arms after each candle closes, one position active at a time
 - All state is **in-memory** — restarting mid-day resets everything
-- The bot runs until you press `Ctrl+C`
+- If started **after 9:30 IST**, the bot auto-seeds the opening candle from historical data
+- Press `Ctrl+C` to stop the bot
+
+---
+
+<div align="center">
+
+Built with ❤️ using .NET 8 · Not financial advice · Trade responsibly
+
+</div>
