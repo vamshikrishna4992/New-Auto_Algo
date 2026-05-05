@@ -60,6 +60,14 @@ public class BreakoutWorker : BackgroundService
 
                 if (!_state.CandleReady) continue;
 
+                if (_state.PreviousCandle is not null)
+{
+    _logger.LogInformation(
+        "LTP: {Ltp:F2} | REF H: {High:F2} L: {Low:F2}",
+        tick.Ltp,
+        _state.PreviousCandle.High,
+        _state.PreviousCandle.Low);
+}
                 var signal = _breakoutDetector.Detect(tick);
                 if (signal is null) continue;
 
@@ -81,12 +89,14 @@ public class BreakoutWorker : BackgroundService
         _state.Log($"Signal: {signal.Direction} | Nifty: {signal.NiftyLtp:F2} | ATM: {atm}");
         _logger.LogInformation("Signal detected: {Dir} | ATM Strike: {Atm}", signal.Direction, atm);
 
-        string optionKey;
+        // ✅ Get full instrument (NOT string)
+        OptionInstrument instrument;
         try
         {
             _state.Log($"Fetching {signal.Direction} option at strike {atm}");
-            optionKey = await _optionChain.GetAtmOptionSymbolAsync(atm, signal.Direction, ct);
-            signal.OptionSymbol = optionKey;
+            instrument = await _optionChain.GetAtmOptionSymbolAsync(atm, signal.Direction, ct);
+
+            signal.OptionSymbol = instrument.InstrumentKey;
         }
         catch (Exception ex)
         {
@@ -97,11 +107,25 @@ public class BreakoutWorker : BackgroundService
 
         _state.ActiveSignal = signal;
 
+        // ✅ Correct quantity calculation
+        int quantity = instrument.LotSize;
+
         string orderId;
         try
         {
+            _logger.LogInformation(
+                "Order Debug → Key: {Key}, Strike: {Strike}, Expiry: {Expiry}, LotSize: {Lot}, Qty: {Qty}",
+                instrument.InstrumentKey,
+                instrument.Strike,
+                instrument.Expiry,
+                instrument.LotSize,
+                quantity);
+
             orderId = await _orders.PlaceMarketOrderAsync(
-                optionKey, _trading.LotSize, TradeDirection.Buy, ct);
+                instrument.InstrumentKey,
+                quantity,
+                TradeDirection.Buy,
+                ct);
         }
         catch (Exception ex)
         {
@@ -111,25 +135,28 @@ public class BreakoutWorker : BackgroundService
         }
 
         var ist = ORBState.GetIST();
+
         var position = new Position
         {
             OrderId = orderId,
-            OptionSymbol = optionKey,
-            InstrumentKey = optionKey,
-            EntryPrice = _state.LastNiftyLtp, // will be updated by first option tick
+            OptionSymbol = instrument.InstrumentKey,
+            InstrumentKey = instrument.InstrumentKey,
+            EntryPrice = _state.LastNiftyLtp,
             EntryTime = ist,
-            Quantity = _trading.LotSize,
+            Quantity = quantity,
             Status = PositionStatus.Open
         };
 
         _state.ActivePosition = position;
         _state.TradeTakenToday = true;
 
-        _state.Log($"Order placed | {optionKey} | Qty: {_trading.LotSize} | OrderId: {orderId}");
+        _state.Log($"Order placed | {instrument.InstrumentKey} | Qty: {quantity} | OrderId: {orderId}");
 
-        // Notify MarketDataWorker to subscribe to the option instrument
+        // Subscribe to option ticks
         var mdw = _sp.GetService<MarketDataWorker>();
         if (mdw is not null)
-            await mdw.SubscribeToOptionAsync(optionKey, ct);
+        {
+            await mdw.SubscribeToOptionAsync(instrument.InstrumentKey, ct);
+        }
     }
 }

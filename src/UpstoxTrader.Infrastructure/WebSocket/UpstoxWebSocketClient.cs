@@ -134,8 +134,10 @@ public class UpstoxWebSocketClient : IMarketFeedService
         var uriStr = uriEl.GetString()
             ?? throw new InvalidOperationException("authorizedRedirectUri is null");
 
-        _logger.LogDebug("Authorized WebSocket URI obtained");
-        return new Uri(uriStr);
+        var safeUri = new Uri(uriStr);
+        _logger.LogInformation("Authorized WebSocket URI: {Scheme}://{Host}{Path}",
+            safeUri.Scheme, safeUri.Host, safeUri.AbsolutePath);
+        return safeUri;
     }
 
     private async Task SendSubscriptionAsync(string[] keys, CancellationToken ct)
@@ -146,7 +148,7 @@ public class UpstoxWebSocketClient : IMarketFeedService
             method = "sub",
             data = new
             {
-                mode = "full",
+                mode = "ltpc",
                 instrumentKeys = keys
             }
         };
@@ -186,12 +188,13 @@ public class UpstoxWebSocketClient : IMarketFeedService
 
                 if (result.MessageType != WebSocketMessageType.Binary)
                 {
-                    _logger.LogDebug("Skipping non-binary WebSocket frame (type={Type})",
-                        result.MessageType);
+                    _logger.LogInformation("Skipping non-binary WebSocket frame (type={Type}, bytes={Bytes})",
+                        result.MessageType, ms.Length);
                     continue;
                 }
 
-                ProcessFrame(ms.ToArray());
+                var frameBytes = ms.ToArray();
+                ProcessFrame(frameBytes);
             }
         }
         catch (OperationCanceledException) { }
@@ -222,10 +225,17 @@ public class UpstoxWebSocketClient : IMarketFeedService
 
         var now = DateTime.UtcNow;
 
+        var frameNum = Interlocked.Increment(ref _tickCount);
+        _logger.LogInformation("Frame #{Num} parsed: {Count} feed entries | type={Type}",
+            frameNum, feed.Feeds.Count, feed.Type);
+
         foreach (var (key, value) in feed.Feeds)
         {
             if (!TryExtractLtp(key, value, out var ltp, out var vol, out var oi))
+            {
+                _logger.LogInformation("LTP extraction failed for {Key} | FeedCase={Case}", key, value.FeedUnionCase);
                 continue;
+            }
 
             // Never emit a zero LTP — it means the frame was malformed or the
             // field was missing. Log it so the operator knows the feed is broken.
@@ -242,8 +252,8 @@ public class UpstoxWebSocketClient : IMarketFeedService
             _tickChannel.Writer.TryWrite(tick);
 
             var count = Interlocked.Increment(ref _tickCount);
-            if (count % 10 == 0)
-                _logger.LogDebug("Tick #{Count} | {Key} | LTP: {Ltp}", count, key, ltp);
+            if (count % 100 == 0)
+                _logger.LogInformation("Tick #{Count} | {Key} | LTP: {Ltp}", count, key, ltp);
         }
     }
 

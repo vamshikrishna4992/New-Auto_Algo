@@ -6,6 +6,7 @@ public class ORBState
     public decimal PreviousNiftyLtp { get; set; }
 
     public OpeningCandle? Candle { get; set; }
+    public OpeningCandle? PreviousCandle { get; set; }
     public bool CandleReady { get; set; }
 
     // Live candle-build tracking (visible to dashboard before candle locks)

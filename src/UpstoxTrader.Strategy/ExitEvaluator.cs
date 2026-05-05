@@ -17,18 +17,57 @@ public class ExitEvaluator
 
     public string? Evaluate(Position position, DateTime istNow)
     {
-        if (position.ProfitPct >= _settings.TakeProfitPct)
-            return "Target Hit";
+        var entry = position.EntryPrice;
+        var ltp = position.CurrentLtp;
 
-        if (position.LossPct >= _settings.StopLossPct)
-            return "Stop Loss Hit";
+        // Safety check
+        if (entry <= 0 || ltp <= 0)
+            return null;
 
+        // =========================
+        // 🎯 PERCENT MODE
+        // =========================
+        if (_settings.ExitMode == "Percent")
+        {
+            var changePct = ((ltp - entry) / entry) * 100;
+
+            if (changePct >= _settings.TakeProfitPct)
+                return "Target Hit";
+
+            if (changePct <= -_settings.StopLossPct)
+                return "Stop Loss Hit";
+        }
+
+        // =========================
+        // 🎯 POINTS MODE
+        // =========================
+        else if (_settings.ExitMode == "Points")
+        {
+            var diff = ltp - entry;
+
+            if (diff >= _settings.TakeProfitPoints)
+                return "Target Hit";
+
+            if (diff <= -_settings.StopLossPoints)
+                return "Stop Loss Hit";
+        }
+
+        // =========================
+        // ⏰ HARD EXIT (time-based)
+        // =========================
         if (TimeSpan.TryParse(_settings.HardExitTime, out var hardExit) &&
             istNow.TimeOfDay >= hardExit)
-            return "Timed Out at 15:20";
+        {
+            return "Timed Out at " + _settings.HardExitTime;
+        }
 
+        // =========================
+        // 🛑 MANUAL EXIT
+        // =========================
         if (_state.ForceExitRequested)
+        {
             return "Manual Exit";
+        }
 
         return null;
     }

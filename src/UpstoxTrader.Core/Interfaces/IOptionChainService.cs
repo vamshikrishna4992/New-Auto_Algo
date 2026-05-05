@@ -4,5 +4,8 @@ namespace UpstoxTrader.Core.Interfaces;
 
 public interface IOptionChainService
 {
-    Task<string> GetAtmOptionSymbolAsync(int strike, OptionType type, CancellationToken ct);
+    Task<OptionInstrument> GetAtmOptionSymbolAsync(
+        int strike,
+        OptionType type,
+        CancellationToken ct);
 }

@@ -25,19 +25,23 @@ public class BreakoutDetector
     public Signal? Detect(TickData tick)
     {
         if (_state.TradeTakenToday) return null;
-        if (!_state.CandleReady || _state.Candle is null) return null;
+        if (!_state.CandleReady || _state.PreviousCandle is null) return null;
 
         var ist = ORBState.GetIST();
 
         // AllCandles: when a new candle closes and becomes the reference, reset the signal gate
         // so each candle gets a fresh breakout check in the next period
-        if (_trading.CandleMode == "AllCandles" && _state.Candle.CandleEnd != _lastCandleEnd)
-        {
-            _signalFired = false;
-            _lastCandleEnd = _state.Candle.CandleEnd;
-        }
+        if (_trading.CandleMode == "AllCandles" &&
+    _state.PreviousCandle!.CandleEnd != _lastCandleEnd)
+{
+    _signalFired = false;
+    _lastCandleEnd = _state.PreviousCandle.CandleEnd;
+}
 
         if (_signalFired) return null;
+
+        if (_state.PreviousNiftyLtp == 0)
+    return null;
 
         // AllCandles: do not fire signals at or after SignalCutoffTime
         if (_trading.CandleMode == "AllCandles" &&
@@ -45,34 +49,42 @@ public class BreakoutDetector
             ist.TimeOfDay >= cutoff)
             return null;
 
-        if (tick.Ltp > _state.Candle.High)
-        {
-            _signalFired = true;
-            _state.Log($"Breakout UP | LTP: {tick.Ltp:F2} crossed High: {_state.Candle.High:F2}");
-            _logger.LogInformation("Breakout UP | {Ltp} > {High}", tick.Ltp, _state.Candle.High);
+       var candle = _state.PreviousCandle!;
 
-            return new Signal
-            {
-                Direction = OptionType.CE,
-                NiftyLtp = tick.Ltp,
-                DetectedAt = ist
-            };
-        }
+// 🔺 Up breakout (crossing)
+decimal buffer = 1; // add this just above conditions
 
-        if (tick.Ltp < _state.Candle.Low)
-        {
-            _signalFired = true;
-            _state.Log($"Breakout DOWN | LTP: {tick.Ltp:F2} crossed Low: {_state.Candle.Low:F2}");
-            _logger.LogInformation("Breakout DOWN | {Ltp} < {Low}", tick.Ltp, _state.Candle.Low);
+if (tick.Ltp > candle.High + buffer)
+{
+    _signalFired = true;
 
-            return new Signal
-            {
-                Direction = OptionType.PE,
-                NiftyLtp = tick.Ltp,
-                DetectedAt = ist
-            };
-        }
+    _state.Log($"Breakout UP | LTP: {tick.Ltp:F2} crossed High: {candle.High:F2}");
+    _logger.LogInformation("Breakout UP | {Ltp} > {High}", tick.Ltp, candle.High);
 
+    return new Signal
+    {
+        Direction = OptionType.CE,
+        NiftyLtp = tick.Ltp,
+        DetectedAt = ist
+    };
+}
+
+// 🔻 Down breakout (crossing)
+
+if (tick.Ltp < candle.Low - buffer)
+{
+    _signalFired = true;
+
+    _state.Log($"Breakout DOWN | LTP: {tick.Ltp:F2} crossed Low: {candle.Low:F2}");
+    _logger.LogInformation("Breakout DOWN | {Ltp} < {Low}", tick.Ltp, candle.Low);
+
+    return new Signal
+    {
+        Direction = OptionType.PE,
+        NiftyLtp = tick.Ltp,
+        DetectedAt = ist
+    };
+}
         return null;
     }
 

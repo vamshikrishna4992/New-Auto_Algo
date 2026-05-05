@@ -86,25 +86,32 @@ public class ORBCandleBuilder
         _state.CandleLowSoFar = _low;
     }
 
-    private void FinalizeCandle(DateTime start, DateTime end)
+ private void FinalizeCandle(DateTime start, DateTime end)
+{
+    var candle = new OpeningCandle
     {
-        var candle = new OpeningCandle
-        {
-            High = _high,
-            Low = _low,
-            Open = _open,
-            Close = _close,
-            CandleStart = start,
-            CandleEnd = end
-        };
+        High = _high,
+        Low = _low,
+        Open = _open,
+        Close = _close,
+        CandleStart = start,
+        CandleEnd = end
+    };
 
-        _state.Candle = candle;
-        _state.CandleReady = true;
-        _state.Log($"Candle [{start:HH:mm}–{end:HH:mm}] | H:{_high:F2} L:{_low:F2}");
-        _logger.LogInformation("Candle locked [{Start:HH:mm}–{End:HH:mm}] H:{High} L:{Low} O:{Open} C:{Close}",
-            start, end, _high, _low, _open, _close);
-    }
+    // ✅ PERMANENT FIX: always use latest closed candle
+    _state.PreviousCandle = candle;
 
+    // Optional (for UI/debug only)
+    _state.Candle = candle;
+
+    _state.CandleReady = true;
+
+    _state.Log($"Candle [{start:HH:mm}–{end:HH:mm}] | H:{_high:F2} L:{_low:F2}");
+
+    _logger.LogInformation(
+        "Candle locked [{Start:HH:mm}–{End:HH:mm}] H:{High} L:{Low} O:{Open} C:{Close}",
+        start, end, _high, _low, _open, _close);
+}
     public void Reset()
     {
         _currentCandleStart = DateTime.MinValue;

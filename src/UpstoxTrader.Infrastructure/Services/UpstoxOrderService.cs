@@ -61,7 +61,7 @@ public class UpstoxOrderService : IOrderService
 
         try
         {
-            var response = await _http.PostAsync<JsonElement>("/order/place", body, ct);
+            var response = await _http.PostAsync<JsonElement>("order/place", body, ct);
 
             var orderId = ExtractOrderId(response);
             if (string.IsNullOrEmpty(orderId))
@@ -94,7 +94,7 @@ public class UpstoxOrderService : IOrderService
         {
             // Upstox v2: GET /order/details?order_id={orderId}
             var response = await _http.GetAsync<JsonElement>(
-                $"/order/details?order_id={Uri.EscapeDataString(orderId)}", ct);
+                $"order/details?order_id={Uri.EscapeDataString(orderId)}", ct);
 
             if (response.TryGetProperty("data", out var data) &&
                 data.TryGetProperty("status", out var status))

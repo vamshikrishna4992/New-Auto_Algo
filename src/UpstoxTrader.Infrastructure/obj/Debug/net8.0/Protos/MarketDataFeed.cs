@@ -25,39 +25,41 @@ namespace UpstoxTrader.Infrastructure.Protos {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "ChtQcm90b3MvTWFya2V0RGF0YUZlZWQucHJvdG8SJWNvbS51cHN0b3gubWFy",
-            "a2V0ZGF0YWZlZWRlci5ycGMucHJvdG8iuAEKDEZlZWRSZXNwb25zZRJNCgVm",
-            "ZWVkcxgBIAMoCzI+LmNvbS51cHN0b3gubWFya2V0ZGF0YWZlZWRlci5ycGMu",
-            "cHJvdG8uRmVlZFJlc3BvbnNlLkZlZWRzRW50cnkaWQoKRmVlZHNFbnRyeRIL",
-            "CgNrZXkYASABKAkSOgoFdmFsdWUYAiABKAsyKy5jb20udXBzdG94Lm1hcmtl",
-            "dGRhdGFmZWVkZXIucnBjLnByb3RvLkZlZWQ6AjgBIpYBCgRGZWVkEkQKCWZ1",
-            "bGxfZmVlZBgBIAEoCzIvLmNvbS51cHN0b3gubWFya2V0ZGF0YWZlZWRlci5y",
-            "cGMucHJvdG8uRnVsbEZlZWRIABI7CgRsdHBjGAIgASgLMisuY29tLnVwc3Rv",
-            "eC5tYXJrZXRkYXRhZmVlZGVyLnJwYy5wcm90by5MVFBDSABCCwoJRmVlZFVu",
-            "aW9uIqUBCghGdWxsRmVlZBJECgltYXJrZXRfZmYYASABKAsyLy5jb20udXBz",
-            "dG94Lm1hcmtldGRhdGFmZWVkZXIucnBjLnByb3RvLk1hcmtldEZGSAASQgoI",
-            "aW5kZXhfZmYYAiABKAsyLi5jb20udXBzdG94Lm1hcmtldGRhdGFmZWVkZXIu",
-            "cnBjLnByb3RvLkluZGV4RkZIAEIPCg1GdWxsRmVlZFVuaW9uIjkKBExUUEMS",
-            "CwoDbHRwGAEgASgBEgsKA2x0dBgCIAEoAxILCgNsdHEYAyABKAESCgoCY3AY",
-            "BCABKAEimwIKCE1hcmtldEZGEjkKBGx0cGMYASABKAsyKy5jb20udXBzdG94",
-            "Lm1hcmtldGRhdGFmZWVkZXIucnBjLnByb3RvLkxUUEMSCwoDYXRwGAIgASgB",
-            "EgoKAmNwGAMgASgBEjkKBG9obGMYBCABKAsyKy5jb20udXBzdG94Lm1hcmtl",
-            "dGRhdGFmZWVkZXIucnBjLnByb3RvLk9ITEMSCwoDdnR0GAUgASgDEgoKAm9p",
-            "GAYgASgDEgoKAmlpGAcgASgCEkMKDWJpZF9hc2tfcXVvdGUYCCADKAsyLC5j",
-            "b20udXBzdG94Lm1hcmtldGRhdGFmZWVkZXIucnBjLnByb3RvLkxldmVsEgoK",
-            "AnRiGAkgASgBEgoKAnRzGAogASgBIrwBCgdJbmRleEZGEjkKBGx0cGMYASAB",
-            "KAsyKy5jb20udXBzdG94Lm1hcmtldGRhdGFmZWVkZXIucnBjLnByb3RvLkxU",
-            "UEMSEgoKbGFzdF9jbG9zZRgCIAEoARI5CgRvaGxjGAMgASgLMisuY29tLnVw",
-            "c3RveC5tYXJrZXRkYXRhZmVlZGVyLnJwYy5wcm90by5PSExDEhMKC3llYXJs",
-            "eV9oaWdoGAQgASgBEhIKCnllYXJseV9sb3cYBSABKAEiPgoET0hMQxIMCgRv",
-            "cGVuGAEgASgBEgwKBGhpZ2gYAiABKAESCwoDbG93GAMgASgBEg0KBWNsb3Nl",
-            "GAQgASgBIlkKBUxldmVsEhQKDGJpZF9xdWFudGl0eRgBIAEoAxIRCgliaWRf",
-            "cHJpY2UYAiABKAESEQoJYXNrX3ByaWNlGAMgASgBEhQKDGFza19xdWFudGl0",
-            "eRgEIAEoA0IlqgIiVXBzdG94VHJhZGVyLkluZnJhc3RydWN0dXJlLlByb3Rv",
-            "c2IGcHJvdG8z"));
+            "a2V0ZGF0YWZlZWRlci5ycGMucHJvdG8i9wEKDEZlZWRSZXNwb25zZRI9CgR0",
+            "eXBlGAEgASgOMi8uY29tLnVwc3RveC5tYXJrZXRkYXRhZmVlZGVyLnJwYy5w",
+            "cm90by5GZWVkVHlwZRJNCgVmZWVkcxgCIAMoCzI+LmNvbS51cHN0b3gubWFy",
+            "a2V0ZGF0YWZlZWRlci5ycGMucHJvdG8uRmVlZFJlc3BvbnNlLkZlZWRzRW50",
+            "cnkaWQoKRmVlZHNFbnRyeRILCgNrZXkYASABKAkSOgoFdmFsdWUYAiABKAsy",
+            "Ky5jb20udXBzdG94Lm1hcmtldGRhdGFmZWVkZXIucnBjLnByb3RvLkZlZWQ6",
+            "AjgBIpYBCgRGZWVkEkQKCWZ1bGxfZmVlZBgBIAEoCzIvLmNvbS51cHN0b3gu",
+            "bWFya2V0ZGF0YWZlZWRlci5ycGMucHJvdG8uRnVsbEZlZWRIABI7CgRsdHBj",
+            "GAIgASgLMisuY29tLnVwc3RveC5tYXJrZXRkYXRhZmVlZGVyLnJwYy5wcm90",
+            "by5MVFBDSABCCwoJRmVlZFVuaW9uIqUBCghGdWxsRmVlZBJECgltYXJrZXRf",
+            "ZmYYASABKAsyLy5jb20udXBzdG94Lm1hcmtldGRhdGFmZWVkZXIucnBjLnBy",
+            "b3RvLk1hcmtldEZGSAASQgoIaW5kZXhfZmYYAiABKAsyLi5jb20udXBzdG94",
+            "Lm1hcmtldGRhdGFmZWVkZXIucnBjLnByb3RvLkluZGV4RkZIAEIPCg1GdWxs",
+            "RmVlZFVuaW9uIjkKBExUUEMSCwoDbHRwGAEgASgBEgsKA2x0dBgCIAEoAxIL",
+            "CgNsdHEYAyABKAESCgoCY3AYBCABKAEimwIKCE1hcmtldEZGEjkKBGx0cGMY",
+            "ASABKAsyKy5jb20udXBzdG94Lm1hcmtldGRhdGFmZWVkZXIucnBjLnByb3Rv",
+            "LkxUUEMSCwoDYXRwGAIgASgBEgoKAmNwGAMgASgBEjkKBG9obGMYBCABKAsy",
+            "Ky5jb20udXBzdG94Lm1hcmtldGRhdGFmZWVkZXIucnBjLnByb3RvLk9ITEMS",
+            "CwoDdnR0GAUgASgDEgoKAm9pGAYgASgDEgoKAmlpGAcgASgCEkMKDWJpZF9h",
+            "c2tfcXVvdGUYCCADKAsyLC5jb20udXBzdG94Lm1hcmtldGRhdGFmZWVkZXIu",
+            "cnBjLnByb3RvLkxldmVsEgoKAnRiGAkgASgBEgoKAnRzGAogASgBIrwBCgdJ",
+            "bmRleEZGEjkKBGx0cGMYASABKAsyKy5jb20udXBzdG94Lm1hcmtldGRhdGFm",
+            "ZWVkZXIucnBjLnByb3RvLkxUUEMSEgoKbGFzdF9jbG9zZRgCIAEoARI5CgRv",
+            "aGxjGAMgASgLMisuY29tLnVwc3RveC5tYXJrZXRkYXRhZmVlZGVyLnJwYy5w",
+            "cm90by5PSExDEhMKC3llYXJseV9oaWdoGAQgASgBEhIKCnllYXJseV9sb3cY",
+            "BSABKAEiPgoET0hMQxIMCgRvcGVuGAEgASgBEgwKBGhpZ2gYAiABKAESCwoD",
+            "bG93GAMgASgBEg0KBWNsb3NlGAQgASgBIlkKBUxldmVsEhQKDGJpZF9xdWFu",
+            "dGl0eRgBIAEoAxIRCgliaWRfcHJpY2UYAiABKAESEQoJYXNrX3ByaWNlGAMg",
+            "ASgBEhQKDGFza19xdWFudGl0eRgEIAEoAyo8CghGZWVkVHlwZRIQCgxpbml0",
+            "aWFsX2ZlZWQQABINCglsaXZlX2ZlZWQQARIPCgtjbG9zZWRfZmVlZBACQiWq",
+            "AiJVcHN0b3hUcmFkZXIuSW5mcmFzdHJ1Y3R1cmUuUHJvdG9zYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
-          new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::UpstoxTrader.Infrastructure.Protos.FeedResponse), global::UpstoxTrader.Infrastructure.Protos.FeedResponse.Parser, new[]{ "Feeds" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { null, }),
+          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::UpstoxTrader.Infrastructure.Protos.FeedType), }, null, new pbr::GeneratedClrTypeInfo[] {
+            new pbr::GeneratedClrTypeInfo(typeof(global::UpstoxTrader.Infrastructure.Protos.FeedResponse), global::UpstoxTrader.Infrastructure.Protos.FeedResponse.Parser, new[]{ "Type", "Feeds" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { null, }),
             new pbr::GeneratedClrTypeInfo(typeof(global::UpstoxTrader.Infrastructure.Protos.Feed), global::UpstoxTrader.Infrastructure.Protos.Feed.Parser, new[]{ "FullFeed", "Ltpc" }, new[]{ "FeedUnion" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::UpstoxTrader.Infrastructure.Protos.FullFeed), global::UpstoxTrader.Infrastructure.Protos.FullFeed.Parser, new[]{ "MarketFf", "IndexFf" }, new[]{ "FullFeedUnion" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::UpstoxTrader.Infrastructure.Protos.LTPC), global::UpstoxTrader.Infrastructure.Protos.LTPC.Parser, new[]{ "Ltp", "Ltt", "Ltq", "Cp" }, null, null, null, null),
@@ -70,6 +72,15 @@ namespace UpstoxTrader.Infrastructure.Protos {
     #endregion
 
   }
+  #region Enums
+  public enum FeedType {
+    [pbr::OriginalName("initial_feed")] InitialFeed = 0,
+    [pbr::OriginalName("live_feed")] LiveFeed = 1,
+    [pbr::OriginalName("closed_feed")] ClosedFeed = 2,
+  }
+
+  #endregion
+
   #region Messages
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class FeedResponse : pb::IMessage<FeedResponse>
@@ -106,6 +117,7 @@ namespace UpstoxTrader.Infrastructure.Protos {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public FeedResponse(FeedResponse other) : this() {
+      type_ = other.type_;
       feeds_ = other.feeds_.Clone();
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
@@ -116,10 +128,22 @@ namespace UpstoxTrader.Infrastructure.Protos {
       return new FeedResponse(this);
     }
 
+    /// <summary>Field number for the "type" field.</summary>
+    public const int TypeFieldNumber = 1;
+    private global::UpstoxTrader.Infrastructure.Protos.FeedType type_ = global::UpstoxTrader.Infrastructure.Protos.FeedType.InitialFeed;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::UpstoxTrader.Infrastructure.Protos.FeedType Type {
+      get { return type_; }
+      set {
+        type_ = value;
+      }
+    }
+
     /// <summary>Field number for the "feeds" field.</summary>
-    public const int FeedsFieldNumber = 1;
+    public const int FeedsFieldNumber = 2;
     private static readonly pbc::MapField<string, global::UpstoxTrader.Infrastructure.Protos.Feed>.Codec _map_feeds_codec
-        = new pbc::MapField<string, global::UpstoxTrader.Infrastructure.Protos.Feed>.Codec(pb::FieldCodec.ForString(10, ""), pb::FieldCodec.ForMessage(18, global::UpstoxTrader.Infrastructure.Protos.Feed.Parser), 10);
+        = new pbc::MapField<string, global::UpstoxTrader.Infrastructure.Protos.Feed>.Codec(pb::FieldCodec.ForString(10, ""), pb::FieldCodec.ForMessage(18, global::UpstoxTrader.Infrastructure.Protos.Feed.Parser), 18);
     private readonly pbc::MapField<string, global::UpstoxTrader.Infrastructure.Protos.Feed> feeds_ = new pbc::MapField<string, global::UpstoxTrader.Infrastructure.Protos.Feed>();
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -142,6 +166,7 @@ namespace UpstoxTrader.Infrastructure.Protos {
       if (ReferenceEquals(other, this)) {
         return true;
       }
+      if (Type != other.Type) return false;
       if (!Feeds.Equals(other.Feeds)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -150,6 +175,7 @@ namespace UpstoxTrader.Infrastructure.Protos {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
+      if (Type != global::UpstoxTrader.Infrastructure.Protos.FeedType.InitialFeed) hash ^= Type.GetHashCode();
       hash ^= Feeds.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -169,6 +195,10 @@ namespace UpstoxTrader.Infrastructure.Protos {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
+      if (Type != global::UpstoxTrader.Infrastructure.Protos.FeedType.InitialFeed) {
+        output.WriteRawTag(8);
+        output.WriteEnum((int) Type);
+      }
       feeds_.WriteTo(output, _map_feeds_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -180,6 +210,10 @@ namespace UpstoxTrader.Infrastructure.Protos {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (Type != global::UpstoxTrader.Infrastructure.Protos.FeedType.InitialFeed) {
+        output.WriteRawTag(8);
+        output.WriteEnum((int) Type);
+      }
       feeds_.WriteTo(ref output, _map_feeds_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -191,6 +225,9 @@ namespace UpstoxTrader.Infrastructure.Protos {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
+      if (Type != global::UpstoxTrader.Infrastructure.Protos.FeedType.InitialFeed) {
+        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Type);
+      }
       size += feeds_.CalculateSize(_map_feeds_codec);
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -203,6 +240,9 @@ namespace UpstoxTrader.Infrastructure.Protos {
     public void MergeFrom(FeedResponse other) {
       if (other == null) {
         return;
+      }
+      if (other.Type != global::UpstoxTrader.Infrastructure.Protos.FeedType.InitialFeed) {
+        Type = other.Type;
       }
       feeds_.MergeFrom(other.feeds_);
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
@@ -224,7 +264,11 @@ namespace UpstoxTrader.Infrastructure.Protos {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
-          case 10: {
+          case 8: {
+            Type = (global::UpstoxTrader.Infrastructure.Protos.FeedType) input.ReadEnum();
+            break;
+          }
+          case 18: {
             feeds_.AddEntriesFrom(input, _map_feeds_codec);
             break;
           }
@@ -247,7 +291,11 @@ namespace UpstoxTrader.Infrastructure.Protos {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
-          case 10: {
+          case 8: {
+            Type = (global::UpstoxTrader.Infrastructure.Protos.FeedType) input.ReadEnum();
+            break;
+          }
+          case 18: {
             feeds_.AddEntriesFrom(ref input, _map_feeds_codec);
             break;
           }

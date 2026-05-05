@@ -5,7 +5,6 @@ using UpstoxTrader.Core.Settings;
 using UpstoxTrader.Infrastructure.Auth;
 using UpstoxTrader.Infrastructure.Http;
 using UpstoxTrader.Infrastructure.Services;
-using UpstoxTrader.Infrastructure.WebSocket;
 
 namespace UpstoxTrader.Infrastructure.DependencyInjection;
 
@@ -19,7 +18,7 @@ public static class InfrastructureExtensions
         services.Configure<NiftySettings>(config.GetSection("Nifty"));
 
         // TokenManager is registered by the host; TokenService is registered as hosted service by host
-        services.AddSingleton<IMarketFeedService, UpstoxWebSocketClient>();
+        services.AddSingleton<IMarketFeedService, UpstoxLtpPollingService>();
         services.AddSingleton<IOptionChainService, UpstoxOptionChainService>();
         services.AddSingleton<IOrderService, UpstoxOrderService>();
 

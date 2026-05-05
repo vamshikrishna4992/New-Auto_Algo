@@ -20,6 +20,7 @@ Log.Logger = new LoggerConfiguration()
     .MinimumLevel.Information()
     .MinimumLevel.Override("Microsoft.Hosting.Lifetime", LogEventLevel.Warning)
     .MinimumLevel.Override("Microsoft.Extensions.Hosting", LogEventLevel.Warning)
+    .MinimumLevel.Override("System.Net.Http", LogEventLevel.Warning)
     .CreateLogger();
 
 try

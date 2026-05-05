@@ -4,8 +4,15 @@ option csharp_namespace = "UpstoxTrader.Infrastructure.Protos";
 
 package com.upstox.marketdatafeeder.rpc.proto;
 
+enum FeedType {
+  initial_feed = 0;
+  live_feed    = 1;
+  closed_feed  = 2;
+}
+
 message FeedResponse {
-  map<string, Feed> feeds = 1;
+  FeedType             type  = 1;
+  map<string, Feed> feeds = 2;
 }
 
 message Feed {

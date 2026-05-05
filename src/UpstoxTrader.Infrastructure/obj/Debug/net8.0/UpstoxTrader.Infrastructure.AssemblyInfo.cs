@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("UpstoxTrader.Infrastructure")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9648606cf1f9f1366a5cd2c4e8833b290084a4cd")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2c357e2ae0afd3981196ab1a0a5eaf9a94b4547a")]
 [assembly: System.Reflection.AssemblyProductAttribute("UpstoxTrader.Infrastructure")]
 [assembly: System.Reflection.AssemblyTitleAttribute("UpstoxTrader.Infrastructure")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
