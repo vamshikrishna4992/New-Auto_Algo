@@ -63,3 +63,4 @@ C:\Users\Rnamsani\UpstoxTrader\src\UpstoxTrader.Worker\obj\Debug\net8.0\refint\U
 C:\Users\Rnamsani\UpstoxTrader\src\UpstoxTrader.Worker\obj\Debug\net8.0\UpstoxTrader.Worker.pdb
 C:\Users\Rnamsani\UpstoxTrader\src\UpstoxTrader.Worker\obj\Debug\net8.0\UpstoxTrader.Worker.genruntimeconfig.cache
 C:\Users\Rnamsani\UpstoxTrader\src\UpstoxTrader.Worker\obj\Debug\net8.0\ref\UpstoxTrader.Worker.dll
+C:\Users\Rnamsani\UpstoxTrader\src\UpstoxTrader.Worker\obj\Debug\net8.0\UpstoxTrader.Worker.sourcelink.json

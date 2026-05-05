@@ -9,3 +9,4 @@ C:\Users\Rnamsani\UpstoxTrader\src\UpstoxTrader.Core\obj\Debug\net8.0\UpstoxTrad
 C:\Users\Rnamsani\UpstoxTrader\src\UpstoxTrader.Core\obj\Debug\net8.0\refint\UpstoxTrader.Core.dll
 C:\Users\Rnamsani\UpstoxTrader\src\UpstoxTrader.Core\obj\Debug\net8.0\UpstoxTrader.Core.pdb
 C:\Users\Rnamsani\UpstoxTrader\src\UpstoxTrader.Core\obj\Debug\net8.0\ref\UpstoxTrader.Core.dll
+C:\Users\Rnamsani\UpstoxTrader\src\UpstoxTrader.Core\obj\Debug\net8.0\UpstoxTrader.Core.sourcelink.json

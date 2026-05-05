@@ -13,3 +13,4 @@ C:\Users\Rnamsani\UpstoxTrader\src\UpstoxTrader.Strategy\obj\Debug\net8.0\Upstox
 C:\Users\Rnamsani\UpstoxTrader\src\UpstoxTrader.Strategy\obj\Debug\net8.0\refint\UpstoxTrader.Strategy.dll
 C:\Users\Rnamsani\UpstoxTrader\src\UpstoxTrader.Strategy\obj\Debug\net8.0\UpstoxTrader.Strategy.pdb
 C:\Users\Rnamsani\UpstoxTrader\src\UpstoxTrader.Strategy\obj\Debug\net8.0\ref\UpstoxTrader.Strategy.dll
+C:\Users\Rnamsani\UpstoxTrader\src\UpstoxTrader.Strategy\obj\Debug\net8.0\UpstoxTrader.Strategy.sourcelink.json

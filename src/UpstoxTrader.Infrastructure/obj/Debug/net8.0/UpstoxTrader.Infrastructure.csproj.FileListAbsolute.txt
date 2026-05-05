@@ -13,3 +13,4 @@ C:\Users\Rnamsani\UpstoxTrader\src\UpstoxTrader.Infrastructure\obj\Debug\net8.0\
 C:\Users\Rnamsani\UpstoxTrader\src\UpstoxTrader.Infrastructure\obj\Debug\net8.0\refint\UpstoxTrader.Infrastructure.dll
 C:\Users\Rnamsani\UpstoxTrader\src\UpstoxTrader.Infrastructure\obj\Debug\net8.0\UpstoxTrader.Infrastructure.pdb
 C:\Users\Rnamsani\UpstoxTrader\src\UpstoxTrader.Infrastructure\obj\Debug\net8.0\ref\UpstoxTrader.Infrastructure.dll
+C:\Users\Rnamsani\UpstoxTrader\src\UpstoxTrader.Infrastructure\obj\Debug\net8.0\UpstoxTrader.Infrastructure.sourcelink.json
