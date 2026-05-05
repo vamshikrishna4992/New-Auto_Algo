@@ -23,6 +23,12 @@ public class UpstoxLtpPollingService : IMarketFeedService
 
     private static readonly TimeSpan PollInterval = TimeSpan.FromSeconds(1);
 
+    private static readonly TimeZoneInfo _istZone = TimeZoneInfo.FindSystemTimeZoneById(
+        OperatingSystem.IsWindows() ? "India Standard Time" : "Asia/Kolkata");
+
+    private static readonly TimeSpan MarketOpen  = new(9, 15, 0);
+    private static readonly TimeSpan MarketClose = new(15, 30, 0);
+
     public UpstoxLtpPollingService(UpstoxHttpClient http, ILogger<UpstoxLtpPollingService> logger)
     {
         _http = http;
@@ -55,6 +61,20 @@ public class UpstoxLtpPollingService : IMarketFeedService
     {
         while (!ct.IsCancellationRequested)
         {
+            var istNow = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, _istZone).TimeOfDay;
+
+            if (istNow >= MarketClose)
+            {
+                _logger.LogInformation("Market closed at {Time:hh\\:mm} IST — LTP polling stopped", istNow);
+                break;
+            }
+
+            if (istNow < MarketOpen)
+            {
+                await Task.Delay(TimeSpan.FromSeconds(30), ct);
+                continue;
+            }
+
             try
             {
                 string[] keys;
