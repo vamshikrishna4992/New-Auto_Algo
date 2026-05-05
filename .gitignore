@@ -1,0 +1,23 @@
+# Build output
+bin/
+obj/
+
+# Logs
+logs/
+*.log
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+
+# Rider
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Credentials — use appsettings.Development.json for local secrets, never commit real keys
+appsettings.Development.json
+appsettings.local.json
