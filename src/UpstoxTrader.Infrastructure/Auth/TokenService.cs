@@ -72,7 +72,7 @@ public class TokenService : IHostedService
         try
         {
             listener.Start();
-            _logger.LogInformation("Waiting for OAuth callback on http://localhost:5000/auth/callback ...");
+            _logger.LogInformation("Waiting for OAuth callback on http://localhost:5000/callback/ ...");
 
             using var timeoutCts = CancellationTokenSource.CreateLinkedTokenSource(ct);
             timeoutCts.CancelAfter(TimeSpan.FromMinutes(3));

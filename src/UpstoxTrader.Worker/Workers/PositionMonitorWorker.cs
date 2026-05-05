@@ -114,11 +114,11 @@ public class PositionMonitorWorker : BackgroundService
             var pnlPct = (pnlPerUnit / entry) * 100;
 
             _logger.LogInformation(
-                "📊 LTP: {Ltp:F2} | Entry: {Entry:F2} | PnL: ₹{Pnl:F2} | {Pct:F2}%",
-                ltp,
-                entry,
-                totalPnl,
-                pnlPct);
+    "📊 LTP: {Ltp:F2} | Entry: {Entry:F2} | PnL: {Pct:F2}% (₹{Pnl:F2})",
+    ltp,
+    entry,
+    pnlPct,
+    totalPnl);
         }
 
         // ✅ Step 3: Exit evaluation
