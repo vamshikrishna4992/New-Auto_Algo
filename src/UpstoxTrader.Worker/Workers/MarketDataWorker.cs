@@ -19,6 +19,7 @@ public class MarketDataWorker : BackgroundService
     private readonly Channel<TickData> _niftyChannel;
     private readonly Channel<TickData> _breakoutChannel;
     private readonly Channel<TickData> _optionChannel;
+    private readonly Channel<TickData> _volumeOptionChannel;
     private readonly TokenManager _tokenManager;
     private readonly UpstoxHttpClient _http;
     private readonly NiftySettings _nifty;
@@ -34,6 +35,7 @@ public class MarketDataWorker : BackgroundService
         [FromKeyedServices("nifty-channel")] Channel<TickData> niftyChannel,
         [FromKeyedServices("breakout-channel")] Channel<TickData> breakoutChannel,
         [FromKeyedServices("option-channel")] Channel<TickData> optionChannel,
+        [FromKeyedServices("volume-option-channel")] Channel<TickData> volumeOptionChannel,
         TokenManager tokenManager,
         UpstoxHttpClient http,
         IOptions<NiftySettings> nifty,
@@ -45,6 +47,7 @@ public class MarketDataWorker : BackgroundService
         _niftyChannel = niftyChannel;
         _breakoutChannel = breakoutChannel;
         _optionChannel = optionChannel;
+        _volumeOptionChannel = volumeOptionChannel;
         _tokenManager = tokenManager;
         _http = http;
         _nifty = nifty.Value;
@@ -100,10 +103,11 @@ public class MarketDataWorker : BackgroundService
         _breakoutChannel.Writer.TryWrite(tick);
     }
 
-    // ✅ FIXED: Always push option ticks
+    // Always push option ticks to both strategy channels
     if (tick.InstrumentKey.StartsWith("NSE_FO"))
     {
         _optionChannel.Writer.TryWrite(tick);
+        _volumeOptionChannel.Writer.TryWrite(tick);
 
         _logger.LogInformation(
             "OPTION TICK → {Key} | LTP: {Ltp}",

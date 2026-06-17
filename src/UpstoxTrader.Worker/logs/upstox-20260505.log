@@ -17074,3 +17074,17 @@ System.Net.Http.HttpRequestException: An error occurred while sending the reques
 [18:53:40 INF] [UpstoxTrader.Worker.Workers.MarketDataWorker] Opening candle seeded from history [09:15–09:30] H:24061.9 L:23949.4 O:24052.6 C:24025.9
 [18:53:40 INF] [UpstoxTrader.Infrastructure.Services.UpstoxLtpPollingService] LTP polling started for: "NSE_INDEX|Nifty 50"
 [18:53:40 INF] [UpstoxTrader.Infrastructure.Services.UpstoxLtpPollingService] Market closed at 18:53 IST — LTP polling stopped
+[20:13:34 INF] [UpstoxTrader.Infrastructure.Auth.TokenService] Opening browser for Upstox OAuth...
+[20:13:34 INF] [UpstoxTrader.Infrastructure.Auth.TokenService] Auth URL: "https://api.upstox.com/v2/login/authorization/dialog?client_id=85095a03-2bd8-4df5-a745-80760dfff3af&redirect_uri=http%3A%2F%2Flocalhost%3A5000%2Fcallback&response_type=code&scope=orders,portfolio,feed,user"
+[20:13:34 INF] [UpstoxTrader.Infrastructure.Auth.TokenService] Waiting for OAuth callback on http://localhost:5000/callback/ ...
+[20:13:39 INF] [UpstoxTrader.Infrastructure.Auth.TokenService] Access token obtained — ready to trade
+[20:13:39 INF] [UpstoxTrader.Worker.Workers.MarketDataWorker] MarketDataWorker starting — waiting for token...
+[20:13:39 INF] [UpstoxTrader.Worker.Workers.MarketDataWorker] Token available — connecting to market feed
+[20:13:39 INF] [UpstoxTrader.Worker.Workers.MarketDataWorker] App started after ORB window — fetching 9:15 candle from history
+[20:13:39 INF] [UpstoxTrader.Worker.Workers.BreakoutWorker] BreakoutWorker started
+[20:13:39 INF] [UpstoxTrader.Worker.Workers.PositionMonitorWorker] PositionMonitorWorker started
+[20:13:39 INF] [UpstoxTrader.Worker.Workers.DailyResetWorker] DailyResetWorker started
+[20:13:39 INF] [UpstoxTrader.Worker.Workers.DailyResetWorker] Next daily reset in 780.3 minutes
+[20:13:39 INF] [UpstoxTrader.Worker.Workers.MarketDataWorker] Opening candle seeded from history [09:15–09:30] H:24061.9 L:23949.4 O:24052.6 C:24025.9
+[20:13:39 INF] [UpstoxTrader.Infrastructure.Services.UpstoxLtpPollingService] LTP polling started for: "NSE_INDEX|Nifty 50"
+[20:13:39 INF] [UpstoxTrader.Infrastructure.Services.UpstoxLtpPollingService] Market closed at 20:13 IST — LTP polling stopped

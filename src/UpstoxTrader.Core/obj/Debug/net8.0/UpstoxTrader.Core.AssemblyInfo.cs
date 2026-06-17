@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("UpstoxTrader.Core")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f274de005d7146453aa9e3373415109ce081294d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+24e49ffb4b19eb1306a63826ff11772114a1266e")]
 [assembly: System.Reflection.AssemblyProductAttribute("UpstoxTrader.Core")]
 [assembly: System.Reflection.AssemblyTitleAttribute("UpstoxTrader.Core")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

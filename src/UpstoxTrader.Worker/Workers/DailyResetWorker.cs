@@ -1,6 +1,7 @@
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using UpstoxTrader.Core.Models;
+using UpstoxTrader.Infrastructure.Services;
 using UpstoxTrader.Strategy;
 
 namespace UpstoxTrader.Worker.Workers;
@@ -10,17 +11,23 @@ public class DailyResetWorker : BackgroundService
     private readonly ORBState _state;
     private readonly ORBCandleBuilder _candleBuilder;
     private readonly BreakoutDetector _breakoutDetector;
+    private readonly VolumeBreakoutState _volState;
+    private readonly FuturesCandleService _futuresCandles;
     private readonly ILogger<DailyResetWorker> _logger;
 
     public DailyResetWorker(
         ORBState state,
         ORBCandleBuilder candleBuilder,
         BreakoutDetector breakoutDetector,
+        VolumeBreakoutState volState,
+        FuturesCandleService futuresCandles,
         ILogger<DailyResetWorker> logger)
     {
         _state = state;
         _candleBuilder = candleBuilder;
         _breakoutDetector = breakoutDetector;
+        _volState = volState;
+        _futuresCandles = futuresCandles;
         _logger = logger;
     }
 
@@ -41,7 +48,11 @@ public class DailyResetWorker : BackgroundService
                 _candleBuilder.Reset();
                 _breakoutDetector.Reset();
                 _state.Log("Daily auto-reset complete");
-                _logger.LogInformation("Daily reset executed at 09:14 IST");
+
+                // Reset Strategy 2 state and re-discover futures key for possible contract rollover
+                _volState.Reset();
+                _futuresCandles.ResetKey();
+                _logger.LogInformation("Daily reset executed at 09:14 IST — both strategies reset");
 
                 // Wait 24h before next reset calculation
                 await Task.Delay(TimeSpan.FromHours(24), stoppingToken);
