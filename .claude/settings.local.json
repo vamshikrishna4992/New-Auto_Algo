@@ -8,7 +8,11 @@
       "Bash(Get-ChildItem -Path \"c:\\\\Users\\\\Rnamsani\\\\UpstoxTrader\" -Force)",
       "Bash(Select-Object Name, Mode)",
       "Bash(Get-ChildItem -Path \"c:\\\\Users\\\\Rnamsani\\\\UpstoxTrader\\\\src\\\\\" -Directory | Select-Object Name)",
-      "Bash(dotnet build *)"
+      "Bash(dotnet build *)",
+      "Bash(Select-String -Pattern \"error CS|Error CS|: error \")",
+      "Bash(Select-Object -First 30)",
+      "PowerShell(cd \"c:\\\\Users\\\\Rnamsani\\\\UpstoxTrader\"; $result = dotnet build src/UpstoxTrader.Worker/UpstoxTrader.Worker.csproj 2>&1; $csErrors = $result | Where-Object { $_ -match \"error CS\\\\d+\" }; if \\($csErrors\\) { $csErrors } else { \"NO CS ERRORS FOUND\" }; $result | Where-Object { $_ -match \"Build succeeded|FAILED|Error\\\\\\(s\\\\\\)\" } | Select-Object -Last 5)",
+      "Bash(Select-String \"Breakout|Volume|Premium|Monitor|Daily|Market\")"
     ]
   }
 }

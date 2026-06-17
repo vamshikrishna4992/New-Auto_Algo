@@ -12,6 +12,15 @@ using UpstoxTrader.Infrastructure.Services;
 using UpstoxTrader.Strategy;
 using UpstoxTrader.Worker.Workers;
 
+// Which strategy to run — default is "all"
+// Usage: dotnet run -- orb | volume | premium | all
+var strategy = args.FirstOrDefault()?.ToLower() ?? "all";
+bool runOrb     = strategy is "all" or "orb";
+bool runVolume  = strategy is "all" or "volume";
+bool runPremium = strategy is "all" or "premium";
+
+// ── Logging ──────────────────────────────────────────────────────────────────
+
 const string logTemplate =
     "[{Timestamp:HH:mm:ss} {Level:u3}] [{SourceContext}] {Message}{NewLine}{Exception}";
 
@@ -20,23 +29,29 @@ static bool IsVolEvent(Serilog.Events.LogEvent e) =>
     (e.Properties.TryGetValue("SourceContext", out var sc) &&
      (sc.ToString().Contains("Volume") || sc.ToString().Contains("FuturesCandle")));
 
+static bool IsPshEvent(Serilog.Events.LogEvent e) =>
+    e.MessageTemplate.Text.StartsWith("[PSH]") ||
+    (e.Properties.TryGetValue("SourceContext", out var sc2) &&
+     sc2.ToString().Contains("PremiumStopHunt"));
+
 Log.Logger = new LoggerConfiguration()
-    // Console — all strategies combined
     .WriteTo.Console(outputTemplate: logTemplate)
-    // Combined file — everything
     .WriteTo.File("logs/combined-.log",
         rollingInterval: RollingInterval.Day,
         outputTemplate: logTemplate)
-    // Strategy 1 file — ORB (exclude [VOL] lines and Volume source contexts)
     .WriteTo.Logger(lc => lc
-        .Filter.ByExcluding(IsVolEvent)
+        .Filter.ByExcluding(e => IsVolEvent(e) || IsPshEvent(e))
         .WriteTo.File("logs/strategy1-orb-.log",
             rollingInterval: RollingInterval.Day,
             outputTemplate: logTemplate))
-    // Strategy 2 file — Volume Breakout (only [VOL] lines and Volume source contexts)
     .WriteTo.Logger(lc => lc
         .Filter.ByIncludingOnly(IsVolEvent)
         .WriteTo.File("logs/strategy2-volume-.log",
+            rollingInterval: RollingInterval.Day,
+            outputTemplate: logTemplate))
+    .WriteTo.Logger(lc => lc
+        .Filter.ByIncludingOnly(IsPshEvent)
+        .WriteTo.File("logs/strategy3-premium-.log",
             rollingInterval: RollingInterval.Day,
             outputTemplate: logTemplate))
     .MinimumLevel.Information()
@@ -45,7 +60,8 @@ Log.Logger = new LoggerConfiguration()
     .MinimumLevel.Override("System.Net.Http", LogEventLevel.Warning)
     .CreateLogger();
 
-OpenLogWindows();
+Log.Information("Starting with strategy: {Strategy}", strategy.ToUpper());
+OpenLogWindows(runOrb, runVolume, runPremium);
 
 try
 {
@@ -55,60 +71,81 @@ try
         {
             var config = context.Configuration;
 
-            // ── Settings ────────────────────────────────────────────────
+            // ── Settings ─────────────────────────────────────────────────
             services.Configure<UpstoxSettings>(config.GetSection("Upstox"));
             services.Configure<TradingSettings>(config.GetSection("Trading"));
             services.Configure<NiftySettings>(config.GetSection("Nifty"));
             services.Configure<VolumeStrategySettings>(config.GetSection("VolumeStrategy"));
 
-            // ── Core singletons ─────────────────────────────────────────
+            // ── Shared infrastructure ─────────────────────────────────────
+            services.AddSingleton<TokenManager>();
+            services.AddInfrastructure(config);
+
+            // ── Channels — always register all so MarketDataWorker resolves ─
+            services.AddKeyedSingleton<Channel<TickData>>("nifty-channel",
+                (_, _) => Channel.CreateBounded<TickData>(
+                    new BoundedChannelOptions(2000) { FullMode = BoundedChannelFullMode.DropOldest }));
+
+            services.AddKeyedSingleton<Channel<TickData>>("breakout-channel",
+                (_, _) => Channel.CreateBounded<TickData>(
+                    new BoundedChannelOptions(2000) { FullMode = BoundedChannelFullMode.DropOldest }));
+
+            services.AddKeyedSingleton<Channel<TickData>>("option-channel",
+                (_, _) => Channel.CreateBounded<TickData>(
+                    new BoundedChannelOptions(2000) { FullMode = BoundedChannelFullMode.DropOldest }));
+
+            services.AddKeyedSingleton<Channel<TickData>>("volume-option-channel",
+                (_, _) => Channel.CreateBounded<TickData>(
+                    new BoundedChannelOptions(2000) { FullMode = BoundedChannelFullMode.DropOldest }));
+
+            services.AddKeyedSingleton<Channel<TickData>>("premium-nifty-channel",
+                (_, _) => Channel.CreateBounded<TickData>(
+                    new BoundedChannelOptions(2000) { FullMode = BoundedChannelFullMode.DropOldest }));
+
+            services.AddKeyedSingleton<Channel<TickData>>("premium-option-channel",
+                (_, _) => Channel.CreateBounded<TickData>(
+                    new BoundedChannelOptions(2000) { FullMode = BoundedChannelFullMode.DropOldest }));
+
+            // ── Shared state (always registered — needed by DailyResetWorker) ─
             services.AddSingleton<ORBState>();
             services.AddSingleton<BreakoutDetector>();
             services.AddSingleton<ORBCandleBuilder>();
             services.AddSingleton<ExitEvaluator>();
-
-            // ── Infrastructure ──────────────────────────────────────────
-            services.AddSingleton<TokenManager>();
-            services.AddInfrastructure(config);
-
-            // ── Keyed tick channels ─────────────────────────────────────
-            services.AddKeyedSingleton<Channel<TickData>>("nifty-channel",
-                (_, _) => Channel.CreateBounded<TickData>(
-                    new BoundedChannelOptions(2000)
-                    { FullMode = BoundedChannelFullMode.DropOldest }));
-
-            services.AddKeyedSingleton<Channel<TickData>>("breakout-channel",
-                (_, _) => Channel.CreateBounded<TickData>(
-                    new BoundedChannelOptions(2000)
-                    { FullMode = BoundedChannelFullMode.DropOldest }));
-
-            services.AddKeyedSingleton<Channel<TickData>>("option-channel",
-                (_, _) => Channel.CreateBounded<TickData>(
-                    new BoundedChannelOptions(2000)
-                    { FullMode = BoundedChannelFullMode.DropOldest }));
-
-            services.AddKeyedSingleton<Channel<TickData>>("volume-option-channel",
-                (_, _) => Channel.CreateBounded<TickData>(
-                    new BoundedChannelOptions(2000)
-                    { FullMode = BoundedChannelFullMode.DropOldest }));
-
-            // ── Auth (OAuth flow at startup) ─────────────────────────────
-            services.AddHostedService<TokenService>();
-
-            // ── Workers ─────────────────────────────────────────────────
-            // MarketDataWorker registered as singleton so BreakoutWorker
-            // can call SubscribeToOptionAsync on it directly.
-            services.AddSingleton<MarketDataWorker>();
-            services.AddHostedService(sp => sp.GetRequiredService<MarketDataWorker>());
-            services.AddHostedService<BreakoutWorker>();
-            services.AddHostedService<PositionMonitorWorker>();
-            services.AddHostedService<DailyResetWorker>();
-
-            // ── Volume Strategy (Strategy 2) ─────────────────────────────
             services.AddSingleton<VolumeBreakoutState>();
             services.AddSingleton<FuturesCandleService>();
-            services.AddHostedService<VolumeBreakoutWorker>();
-            services.AddHostedService<VolumePositionMonitorWorker>();
+            services.AddSingleton<PremiumStopHuntState>();
+            services.Configure<PremiumStopHuntSettings>(config.GetSection("PremiumStopHunt"));
+
+            // ── Auth ──────────────────────────────────────────────────────
+            services.AddHostedService<TokenService>();
+
+            // ── Shared workers ────────────────────────────────────────────
+            services.AddSingleton<MarketDataWorker>();
+            services.AddHostedService(sp => sp.GetRequiredService<MarketDataWorker>());
+            services.AddHostedService<DailyResetWorker>();
+
+            // ── Strategy 1: ORB ───────────────────────────────────────────
+            if (runOrb)
+            {
+                Log.Information("Strategy 1 (ORB) enabled");
+                services.AddHostedService<BreakoutWorker>();
+                services.AddHostedService<PositionMonitorWorker>();
+            }
+
+            // ── Strategy 2: Volume Breakout ───────────────────────────────
+            if (runVolume)
+            {
+                Log.Information("Strategy 2 (Volume Breakout) enabled");
+                services.AddHostedService<VolumeBreakoutWorker>();
+                services.AddHostedService<VolumePositionMonitorWorker>();
+            }
+
+            // ── Strategy 3: Premium Stop Hunt ─────────────────────────────
+            if (runPremium)
+            {
+                Log.Information("Strategy 3 (Premium Stop Hunt) enabled");
+                services.AddHostedService<PremiumStopHuntWorker>();
+            }
         })
         .Build();
 
@@ -123,11 +160,12 @@ finally
     Log.CloseAndFlush();
 }
 
-static void OpenLogWindows()
+static void OpenLogWindows(bool orb, bool volume, bool premium)
 {
     var dir = Directory.GetCurrentDirectory();
-    LaunchScript(Path.Combine(dir, "Watch-ORB.ps1"));
-    LaunchScript(Path.Combine(dir, "Watch-Volume.ps1"));
+    if (orb)     LaunchScript(Path.Combine(dir, "Watch-ORB.ps1"));
+    if (volume)  LaunchScript(Path.Combine(dir, "Watch-Volume.ps1"));
+    if (premium) LaunchScript(Path.Combine(dir, "Watch-Premium.ps1"));
 
     static void LaunchScript(string script)
     {
@@ -141,6 +179,6 @@ static void OpenLogWindows()
                 UseShellExecute = true
             });
         }
-        catch { /* silently ignore if terminal can't open */ }
+        catch { }
     }
 }

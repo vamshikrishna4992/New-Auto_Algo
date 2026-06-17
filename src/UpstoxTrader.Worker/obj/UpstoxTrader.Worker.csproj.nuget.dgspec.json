@@ -160,14 +160,14 @@
         }
       }
     },
-    "c:\\Users\\Rnamsani\\UpstoxTrader\\src\\UpstoxTrader.Strategy\\UpstoxTrader.Strategy.csproj": {
+    "C:\\Users\\Rnamsani\\UpstoxTrader\\src\\UpstoxTrader.Strategy\\UpstoxTrader.Strategy.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\Rnamsani\\UpstoxTrader\\src\\UpstoxTrader.Strategy\\UpstoxTrader.Strategy.csproj",
+        "projectUniqueName": "C:\\Users\\Rnamsani\\UpstoxTrader\\src\\UpstoxTrader.Strategy\\UpstoxTrader.Strategy.csproj",
         "projectName": "UpstoxTrader.Strategy",
-        "projectPath": "c:\\Users\\Rnamsani\\UpstoxTrader\\src\\UpstoxTrader.Strategy\\UpstoxTrader.Strategy.csproj",
+        "projectPath": "C:\\Users\\Rnamsani\\UpstoxTrader\\src\\UpstoxTrader.Strategy\\UpstoxTrader.Strategy.csproj",
         "packagesPath": "C:\\Users\\Rnamsani\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\Rnamsani\\UpstoxTrader\\src\\UpstoxTrader.Strategy\\obj\\",
+        "outputPath": "C:\\Users\\Rnamsani\\UpstoxTrader\\src\\UpstoxTrader.Strategy\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Rnamsani\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -260,8 +260,8 @@
               "C:\\Users\\Rnamsani\\UpstoxTrader\\src\\UpstoxTrader.Infrastructure\\UpstoxTrader.Infrastructure.csproj": {
                 "projectPath": "C:\\Users\\Rnamsani\\UpstoxTrader\\src\\UpstoxTrader.Infrastructure\\UpstoxTrader.Infrastructure.csproj"
               },
-              "c:\\Users\\Rnamsani\\UpstoxTrader\\src\\UpstoxTrader.Strategy\\UpstoxTrader.Strategy.csproj": {
-                "projectPath": "c:\\Users\\Rnamsani\\UpstoxTrader\\src\\UpstoxTrader.Strategy\\UpstoxTrader.Strategy.csproj"
+              "C:\\Users\\Rnamsani\\UpstoxTrader\\src\\UpstoxTrader.Strategy\\UpstoxTrader.Strategy.csproj": {
+                "projectPath": "C:\\Users\\Rnamsani\\UpstoxTrader\\src\\UpstoxTrader.Strategy\\UpstoxTrader.Strategy.csproj"
               }
             }
           }
